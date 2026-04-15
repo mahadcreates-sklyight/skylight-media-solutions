@@ -1,40 +1,40 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '@/i18n/LanguageContext';
-import { Play, ArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { useState } from 'react';
 import heroBg from '@/assets/hero-bg.jpg';
 import portfolioGrid from '@/assets/portfolio-grid.jpg';
 import AnimatedCounter from '@/components/AnimatedCounter';
 import { ProjectCard, VideoPlayerModal, SectionHeader } from '@/components/MediaComponents';
-import { Film, Megaphone, Smartphone, Camera, Calendar, TrendingUp, Star, Quote } from 'lucide-react';
+import { Film, Video, Smartphone, Camera, Calendar, Palette, Star, Quote } from 'lucide-react';
 
 const portfolioItems = [
-  { title: 'Brand Vision Campaign', category: 'Commercial', image: '' },
-  { title: 'Social Media Series', category: 'Social Media', image: '' },
-  { title: 'Corporate Event Highlights', category: 'Events', image: '' },
-  { title: 'Product Launch Film', category: 'Promotional', image: '' },
-  { title: 'Annual Gala Coverage', category: 'Events', image: '' },
-  { title: 'Digital Ad Campaign', category: 'Brand Campaigns', image: '' },
+  { title: 'Community Gala Highlights', category: 'Events', image: '' },
+  { title: 'Business Promo — Grand Opening', category: 'Promotional', image: '' },
+  { title: 'Brand Story Film', category: 'Commercial', image: '' },
+  { title: 'Social Media Campaign', category: 'Social Media', image: '' },
+  { title: 'Conference Coverage', category: 'Events', image: '' },
+  { title: 'Product Launch Video', category: 'Promotional', image: '' },
 ];
 
 const testimonials = [
   {
-    quote: "Skylight Media transformed our brand's visual identity. Their cinematic approach to our commercial campaign exceeded all expectations.",
-    name: 'Sarah Johnson',
-    company: 'TechVision Inc.',
+    quote: "Skylight Media Solutions captured our community event beautifully. The video quality was outstanding and they delivered on time. Highly recommend their team!",
+    name: 'Abdi Mohamed',
+    company: 'Community Organization',
     rating: 5,
   },
   {
-    quote: "Working with Skylight was an incredible experience. They understood our vision perfectly and delivered content that truly resonates with our audience.",
-    name: 'Ahmed Hassan',
-    company: 'Global Ventures',
+    quote: "Professional, creative, and easy to work with. They understood exactly what we needed for our business promotional video and exceeded our expectations.",
+    name: 'Fatima Hassan',
+    company: 'Local Business Owner',
     rating: 5,
   },
   {
-    quote: "The quality of production and attention to detail is unmatched. Skylight Media is our go-to partner for all media projects.",
-    name: 'Maria Rodriguez',
-    company: 'Luxe Brands',
+    quote: "From planning to final delivery, Skylight handled everything. Our event coverage looked cinematic and our guests were impressed with the final product.",
+    name: 'Omar Ali',
+    company: 'Event Organizer',
     rating: 5,
   },
 ];
@@ -46,11 +46,11 @@ const HomePage = () => {
 
   const services = [
     { icon: Film, key: 'services.videoProduction' },
-    { icon: Megaphone, key: 'services.commercial' },
+    { icon: Video, key: 'services.promotional' },
     { icon: Smartphone, key: 'services.socialMedia' },
     { icon: Camera, key: 'services.photography' },
     { icon: Calendar, key: 'services.eventCoverage' },
-    { icon: TrendingUp, key: 'services.mediaMarketing' },
+    { icon: Palette, key: 'services.brandMedia' },
   ];
 
   return (
@@ -58,7 +58,7 @@ const HomePage = () => {
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
-          <img src={heroBg} alt="Skylight Media Productions" className="w-full h-full object-cover" width={1920} height={1080} />
+          <img src={heroBg} alt="Skylight Media Solutions — Professional Video Production" className="w-full h-full object-cover" width={1920} height={1080} />
           <div className="absolute inset-0 cinematic-overlay" />
           <div className="absolute inset-0 bg-background/40" />
         </div>
@@ -82,7 +82,6 @@ const HomePage = () => {
           </motion.div>
         </div>
 
-        {/* Scroll indicator */}
         <motion.div
           className="absolute bottom-8 left-1/2 -translate-x-1/2"
           animate={{ y: [0, 10, 0] }}
@@ -94,7 +93,7 @@ const HomePage = () => {
         </motion.div>
       </section>
 
-      {/* Featured Work */}
+      {/* Recent Productions */}
       <section className="section-padding bg-surface">
         <div className="container-custom">
           <SectionHeader title={t('featured.title')} subtitle={t('featured.subtitle')} />
@@ -144,10 +143,10 @@ const HomePage = () => {
       <section className="section-padding bg-surface">
         <div className="container-custom">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-            <AnimatedCounter end={350} suffix="+" label={t('stats.projects')} />
-            <AnimatedCounter end={200} suffix="+" label={t('stats.clients')} />
-            <AnimatedCounter end={12} suffix="+" label={t('stats.years')} />
-            <AnimatedCounter end={25} label={t('stats.awards')} />
+            <AnimatedCounter end={150} suffix="+" label={t('stats.projects')} />
+            <AnimatedCounter end={80} suffix="+" label={t('stats.clients')} />
+            <AnimatedCounter end={5} suffix="+" label={t('stats.years')} />
+            <AnimatedCounter end={10} suffix="+" label={t('stats.awards')} />
           </div>
         </div>
       </section>

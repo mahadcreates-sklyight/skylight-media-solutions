@@ -76,11 +76,11 @@ const Footer = () => {
             <ul className="space-y-3">
               {[
                 'services.videoProduction',
-                'services.commercial',
+                'services.promotional',
                 'services.socialMedia',
                 'services.photography',
                 'services.eventCoverage',
-                'services.mediaMarketing',
+                'services.brandMedia',
               ].map((key) => (
                 <li key={key}>
                   <Link to="/services" className="text-muted-foreground text-sm hover:text-primary transition-colors">

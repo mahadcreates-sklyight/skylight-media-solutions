@@ -13,61 +13,61 @@ import portfolioGrid from '@/assets/portfolio-grid.jpg';
 const blogPosts = [
   {
     id: 1,
-    title: '10 Cinematic Techniques That Elevate Brand Videos',
-    excerpt: 'Discover the professional cinematography techniques that transform ordinary brand videos into compelling visual stories.',
-    category: 'Production Tips',
+    title: 'Why Every Business Needs Professional Video Content',
+    excerpt: 'In today\'s digital world, video is the most powerful way to connect with your audience. Here\'s why investing in professional video production pays off for businesses of all sizes.',
+    category: 'Business Tips',
     date: 'March 15, 2026',
-    readTime: '8 min read',
+    readTime: '5 min read',
     image: heroBg,
   },
   {
     id: 2,
-    title: 'The Future of Social Media Video Content',
-    excerpt: 'How short-form video is reshaping brand communication and what it means for your marketing strategy.',
-    category: 'Industry Insights',
+    title: 'How to Prepare for Your Event Coverage',
+    excerpt: 'Getting the most out of professional event coverage starts with preparation. These tips will help ensure your event is captured perfectly from every angle.',
+    category: 'Production Tips',
     date: 'March 10, 2026',
+    readTime: '4 min read',
+    image: serviceEvent,
+  },
+  {
+    id: 3,
+    title: 'The Power of Storytelling in Brand Media',
+    excerpt: 'People connect with stories, not sales pitches. Learn how storytelling-driven media content helps businesses build deeper connections with their audience.',
+    category: 'Creative Insights',
+    date: 'March 5, 2026',
     readTime: '6 min read',
     image: serviceVideo,
   },
   {
-    id: 3,
-    title: 'Behind The Scenes: Our Latest Commercial Shoot',
-    excerpt: 'Take a look behind the curtain at the creative process that goes into producing a high-end commercial.',
+    id: 4,
+    title: 'Behind the Scenes: How We Produce a Promotional Video',
+    excerpt: 'Ever wondered what goes into creating a promotional video? We take you through our process from initial consultation to final delivery.',
     category: 'Behind The Scenes',
-    date: 'March 5, 2026',
+    date: 'February 28, 2026',
     readTime: '5 min read',
     image: servicePhoto,
   },
   {
-    id: 4,
-    title: 'Event Coverage: Best Practices for 2026',
-    excerpt: 'Essential tips for capturing unforgettable event moments with professional quality.',
-    category: 'Production Tips',
-    date: 'February 28, 2026',
-    readTime: '7 min read',
-    image: serviceEvent,
-  },
-  {
     id: 5,
-    title: 'How Video Marketing Drives ROI',
-    excerpt: 'Data-driven insights on how video content delivers measurable business results.',
-    category: 'Industry Insights',
+    title: 'Social Media Video Tips for Small Businesses',
+    excerpt: 'You don\'t need a Hollywood budget to create great social media content. Here are practical tips to help your business stand out online with video.',
+    category: 'Business Tips',
     date: 'February 20, 2026',
-    readTime: '9 min read',
+    readTime: '4 min read',
     image: aboutHero,
   },
   {
     id: 6,
-    title: 'The Art of Visual Storytelling',
-    excerpt: 'Exploring the principles that make visual narratives compelling and memorable.',
-    category: 'Creative',
+    title: 'Why Community Events Deserve Professional Coverage',
+    excerpt: 'Community events bring people together and create lasting memories. Professional coverage ensures those moments are preserved and shared with the wider community.',
+    category: 'Creative Insights',
     date: 'February 15, 2026',
-    readTime: '6 min read',
+    readTime: '5 min read',
     image: portfolioGrid,
   },
 ];
 
-const categories = ['All', 'Production Tips', 'Industry Insights', 'Behind The Scenes', 'Creative'];
+const categories = ['All', 'Business Tips', 'Production Tips', 'Behind The Scenes', 'Creative Insights'];
 
 const BlogPage = () => {
   const { t } = useLanguage();
@@ -96,7 +96,6 @@ const BlogPage = () => {
 
       <section className="section-padding pt-8">
         <div className="container-custom">
-          {/* Search & Filters */}
           <div className="flex flex-col md:flex-row gap-4 mb-12">
             <div className="relative flex-1 max-w-md">
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
@@ -123,7 +122,6 @@ const BlogPage = () => {
             </div>
           </div>
 
-          {/* Blog Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filtered.map((post, i) => (
               <motion.article

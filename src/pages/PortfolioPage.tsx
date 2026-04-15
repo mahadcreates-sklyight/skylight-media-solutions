@@ -9,15 +9,15 @@ import servicePhoto from '@/assets/service-photo.jpg';
 import serviceEvent from '@/assets/service-event.jpg';
 
 const projects = [
-  { id: 1, title: 'Luxury Brand Film', category: 'Commercial', image: portfolioGrid },
-  { id: 2, title: 'Tech Startup Promo', category: 'Promotional', image: serviceVideo },
-  { id: 3, title: 'Social Series — Food', category: 'Social Media', image: servicePhoto },
-  { id: 4, title: 'Annual Gala 2024', category: 'Events', image: serviceEvent },
-  { id: 5, title: 'Fashion Campaign', category: 'Brand Campaigns', image: heroBg },
-  { id: 6, title: 'Product Launch', category: 'Commercial', image: portfolioGrid },
-  { id: 7, title: 'Travel Vlog Series', category: 'Social Media', image: serviceEvent },
-  { id: 8, title: 'Corporate Keynote', category: 'Events', image: serviceVideo },
-  { id: 9, title: 'Charity Gala Film', category: 'Brand Campaigns', image: servicePhoto },
+  { id: 1, title: 'Community Gala — Full Coverage', category: 'Events', image: serviceEvent },
+  { id: 2, title: 'Business Grand Opening Promo', category: 'Promotional', image: serviceVideo },
+  { id: 3, title: 'Corporate Brand Story', category: 'Commercial', image: portfolioGrid },
+  { id: 4, title: 'Social Media Series — Restaurant', category: 'Social Media', image: servicePhoto },
+  { id: 5, title: 'Conference & Seminar Highlights', category: 'Events', image: heroBg },
+  { id: 6, title: 'Product Launch Campaign', category: 'Brand Campaigns', image: portfolioGrid },
+  { id: 7, title: 'Wedding Highlight Film', category: 'Events', image: serviceEvent },
+  { id: 8, title: 'Nonprofit Awareness Video', category: 'Promotional', image: serviceVideo },
+  { id: 9, title: 'Real Estate Showcase', category: 'Commercial', image: servicePhoto },
 ];
 
 const categories = ['All', 'Commercial', 'Promotional', 'Social Media', 'Events', 'Brand Campaigns'];
@@ -43,7 +43,7 @@ const PortfolioPage = () => {
     <>
       <section className="relative h-[60vh] min-h-[400px] flex items-center justify-center">
         <div className="absolute inset-0">
-          <img src={portfolioGrid} alt="Portfolio" className="w-full h-full object-cover" loading="lazy" />
+          <img src={portfolioGrid} alt="Our Work" className="w-full h-full object-cover" loading="lazy" />
           <div className="absolute inset-0 cinematic-overlay" />
           <div className="absolute inset-0 bg-background/50" />
         </div>
@@ -59,7 +59,6 @@ const PortfolioPage = () => {
 
       <section className="section-padding">
         <div className="container-custom">
-          {/* Filters */}
           <div className="flex flex-wrap justify-center gap-3 mb-12">
             {categories.map(cat => (
               <button
@@ -74,7 +73,6 @@ const PortfolioPage = () => {
             ))}
           </div>
 
-          {/* Grid */}
           <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filtered.map(project => (
               <ProjectCard
