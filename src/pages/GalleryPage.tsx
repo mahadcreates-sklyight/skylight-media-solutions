@@ -11,18 +11,18 @@ import serviceEvent from '@/assets/service-event.jpg';
 import aboutHero from '@/assets/about-hero.jpg';
 
 const photos = [
-  { src: heroBg, alt: 'Production Set' },
-  { src: serviceVideo, alt: 'Commercial Shoot' },
-  { src: servicePhoto, alt: 'Photography Session' },
-  { src: serviceEvent, alt: 'Event Coverage' },
-  { src: aboutHero, alt: 'Behind The Scenes' },
-  { src: portfolioGrid, alt: 'Project Collage' },
-  { src: heroBg, alt: 'Studio Setup' },
-  { src: serviceVideo, alt: 'On Location' },
-  { src: serviceEvent, alt: 'Live Event' },
-  { src: aboutHero, alt: 'Creative Direction' },
-  { src: servicePhoto, alt: 'Product Photography' },
-  { src: portfolioGrid, alt: 'Final Cut' },
+  { src: heroBg, alt: 'On Location — Event Setup', caption: 'Setting up for a community gala coverage' },
+  { src: serviceVideo, alt: 'Video Production', caption: 'Behind the scenes — promotional video shoot' },
+  { src: servicePhoto, alt: 'Photography Session', caption: 'Professional headshot session for a local business' },
+  { src: serviceEvent, alt: 'Event Coverage', caption: 'Multi-camera setup for conference coverage' },
+  { src: aboutHero, alt: 'Behind The Scenes', caption: 'Our team in action during a brand shoot' },
+  { src: portfolioGrid, alt: 'Final Production', caption: 'Color grading and editing in post-production' },
+  { src: heroBg, alt: 'Outdoor Shoot', caption: 'Golden hour filming for a promotional campaign' },
+  { src: serviceVideo, alt: 'Interview Setup', caption: 'Client interview setup with professional lighting' },
+  { src: serviceEvent, alt: 'Live Event', caption: 'Capturing the energy of a live community event' },
+  { src: aboutHero, alt: 'Creative Direction', caption: 'Planning the visual narrative for a brand story' },
+  { src: servicePhoto, alt: 'Product Photography', caption: 'Clean product shots for social media content' },
+  { src: portfolioGrid, alt: 'Post-Production', caption: 'Reviewing footage in the editing suite' },
 ];
 
 const GalleryPage = () => {
@@ -52,7 +52,6 @@ const GalleryPage = () => {
 
       <section className="section-padding">
         <div className="container-custom">
-          {/* Tabs */}
           <div className="flex justify-center gap-4 mb-12">
             {(['photos', 'videos'] as const).map(tab => (
               <button
@@ -75,7 +74,7 @@ const GalleryPage = () => {
                   initial={{ opacity: 0 }}
                   whileInView={{ opacity: 1 }}
                   viewport={{ once: true }}
-                  className="break-inside-avoid overflow-hidden rounded-lg cursor-pointer group"
+                  className="break-inside-avoid overflow-hidden rounded-lg cursor-pointer group relative"
                   onClick={() => setSelectedImage(photo.src)}
                 >
                   <div className={masonrySizes[i % masonrySizes.length]}>
@@ -85,6 +84,9 @@ const GalleryPage = () => {
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                       loading="lazy"
                     />
+                  </div>
+                  <div className="absolute inset-0 bg-background/0 group-hover:bg-background/40 transition-colors duration-300 flex items-end">
+                    <p className="text-foreground text-sm p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">{photo.caption}</p>
                   </div>
                 </motion.div>
               ))}
@@ -105,6 +107,7 @@ const GalleryPage = () => {
                       <Play className="w-7 h-7 text-primary-foreground ml-1" />
                     </div>
                   </div>
+                  <p className="absolute bottom-0 left-0 right-0 p-4 text-foreground text-sm bg-gradient-to-t from-background/80 to-transparent">{photo.caption}</p>
                 </motion.div>
               ))}
             </div>
@@ -112,7 +115,6 @@ const GalleryPage = () => {
         </div>
       </section>
 
-      {/* Lightbox */}
       <AnimatePresence>
         {selectedImage && (
           <motion.div

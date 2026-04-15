@@ -5,19 +5,17 @@ import { SectionHeader } from '@/components/MediaComponents';
 import { Target, Eye, Lightbulb, BookOpen } from 'lucide-react';
 
 const teamMembers = [
-  { name: 'Alex Morgan', role: 'Creative Director', image: '' },
-  { name: 'Fatima Ali', role: 'Head of Production', image: '' },
-  { name: 'David Chen', role: 'Lead Cinematographer', image: '' },
-  { name: 'Amina Hassan', role: 'Marketing Director', image: '' },
+  { name: 'Creative Director', role: 'Vision & Strategy', image: '' },
+  { name: 'Lead Videographer', role: 'Production & Filming', image: '' },
+  { name: 'Editor', role: 'Post-Production', image: '' },
+  { name: 'Media Coordinator', role: 'Client Relations', image: '' },
 ];
 
 const timeline = [
-  { year: '2014', title: 'Founded', desc: 'Started as a small video production studio' },
-  { year: '2016', title: 'First Major Client', desc: 'Landed our first enterprise contract' },
-  { year: '2018', title: 'Team Expansion', desc: 'Grew to a team of 15 creative professionals' },
-  { year: '2020', title: 'Digital Pivot', desc: 'Expanded into social media and digital marketing' },
-  { year: '2022', title: 'Award Winning', desc: 'Received multiple industry recognition awards' },
-  { year: '2024', title: 'Global Reach', desc: 'Serving clients across 3 continents' },
+  { year: 'Founded', title: 'The Beginning', desc: 'Started with a passion for visual storytelling and a commitment to quality media production' },
+  { year: 'Growth', title: 'Building Our Portfolio', desc: 'Expanded into event coverage, promotional videos, and brand media for diverse clients' },
+  { year: 'Community', title: 'Trusted Partner', desc: 'Became the go-to production team for community events, businesses, and organizations' },
+  { year: 'Today', title: 'Full-Service Production', desc: 'Offering comprehensive media solutions from concept to delivery across multiple industries' },
 ];
 
 const AboutPage = () => {
@@ -35,7 +33,7 @@ const AboutPage = () => {
       {/* Hero */}
       <section className="relative h-[60vh] min-h-[400px] flex items-center justify-center">
         <div className="absolute inset-0">
-          <img src={aboutHero} alt="About Skylight Media" className="w-full h-full object-cover" loading="lazy" />
+          <img src={aboutHero} alt="About Skylight Media Solutions" className="w-full h-full object-cover" loading="lazy" />
           <div className="absolute inset-0 cinematic-overlay" />
           <div className="absolute inset-0 bg-background/50" />
         </div>
@@ -77,7 +75,7 @@ const AboutPage = () => {
       {/* Timeline */}
       <section className="section-padding bg-surface">
         <div className="container-custom">
-          <SectionHeader title="Our Journey" subtitle="Key milestones in our creative evolution" />
+          <SectionHeader title="Our Journey" subtitle="How we grew from a small creative team into a trusted media production partner" />
           <div className="relative max-w-3xl mx-auto">
             <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-border" />
             {timeline.map((item, i) => (
@@ -104,7 +102,7 @@ const AboutPage = () => {
       {/* Team */}
       <section className="section-padding">
         <div className="container-custom">
-          <SectionHeader title={t('about.team.title')} subtitle="The creative minds behind every project" />
+          <SectionHeader title={t('about.team.title')} subtitle="The creative professionals behind every production" />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {teamMembers.map((member, i) => (
               <motion.div

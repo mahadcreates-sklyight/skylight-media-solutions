@@ -5,45 +5,45 @@ import { Star, Quote, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const testimonials = [
   {
-    quote: "Skylight Media transformed our brand's visual identity. Their cinematic approach to our commercial campaign exceeded all expectations and delivered results beyond our projections.",
-    name: 'Sarah Johnson',
-    company: 'TechVision Inc.',
-    role: 'Chief Marketing Officer',
+    quote: "Skylight Media Solutions captured our community gala perfectly. Every key moment was filmed beautifully and the highlight video was ready faster than we expected. Our community loved it!",
+    name: 'Abdi Mohamed',
+    company: 'Community Organization',
+    role: 'Event Coordinator',
     rating: 5,
   },
   {
-    quote: "Working with Skylight was an incredible experience. They understood our vision perfectly and delivered content that truly resonates with our audience across all platforms.",
-    name: 'Ahmed Hassan',
-    company: 'Global Ventures',
-    role: 'Brand Director',
+    quote: "We needed a promotional video for our business grand opening. Skylight delivered a professional, engaging video that we shared on social media and it brought real customers through our doors.",
+    name: 'Fatima Hassan',
+    company: 'Local Business',
+    role: 'Business Owner',
     rating: 5,
   },
   {
-    quote: "The quality of production and attention to detail is unmatched. Skylight Media is our go-to partner for all media projects. Their team is professional, creative, and reliable.",
-    name: 'Maria Rodriguez',
-    company: 'Luxe Brands',
-    role: 'VP of Marketing',
+    quote: "Professional and reliable. They understood our vision from the first meeting and the final product was exactly what we needed. The quality speaks for itself.",
+    name: 'Omar Ali',
+    company: 'Corporate Client',
+    role: 'Marketing Manager',
     rating: 5,
   },
   {
-    quote: "From concept to final delivery, the team at Skylight demonstrated exceptional creativity and professionalism. Our event coverage was absolutely stunning.",
-    name: 'James Mitchell',
-    company: 'Apex Events',
-    role: 'CEO',
+    quote: "We hired Skylight for our conference coverage and they were incredible. Multi-camera setup, speaker highlights, attendee interviews — everything was captured and edited to perfection.",
+    name: 'Amina Yusuf',
+    company: 'Professional Association',
+    role: 'Conference Director',
     rating: 5,
   },
   {
-    quote: "Our social media presence was completely transformed after partnering with Skylight. The content they create is engaging, on-brand, and consistently delivers results.",
-    name: 'Fatima Al-Rashid',
-    company: 'Bloom Digital',
-    role: 'Social Media Director',
-    rating: 5,
-  },
-  {
-    quote: "Skylight's documentary work for our foundation was deeply moving and effective. It helped us raise over $2 million in donations and attracted hundreds of new volunteers.",
-    name: 'Dr. Amina Osman',
-    company: 'Global Impact Foundation',
+    quote: "Our nonprofit needed a powerful awareness video on a limited budget. Skylight went above and beyond — the documentary-style film moved people to donate and volunteer.",
+    name: 'Hassan Ibrahim',
+    company: 'Nonprofit Organization',
     role: 'Executive Director',
+    rating: 5,
+  },
+  {
+    quote: "The social media content Skylight creates for us consistently drives engagement. They understand our brand and know how to make content that connects with our audience.",
+    name: 'Sahra Ahmed',
+    company: 'E-commerce Business',
+    role: 'Social Media Manager',
     rating: 5,
   },
 ];
@@ -69,7 +69,6 @@ const TestimonialsPage = () => {
         </div>
       </section>
 
-      {/* Featured Carousel */}
       <section className="section-padding pt-8">
         <div className="container-custom">
           <div className="max-w-4xl mx-auto relative">
@@ -114,11 +113,10 @@ const TestimonialsPage = () => {
         </div>
       </section>
 
-      {/* Grid */}
       <section className="section-padding">
         <div className="container-custom">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {testimonials.map((t, i) => (
+            {testimonials.map((testimonial, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 20 }}
@@ -128,15 +126,15 @@ const TestimonialsPage = () => {
                 className="glass-card p-8"
               >
                 <div className="flex items-center gap-1 mb-4">
-                  {Array.from({ length: t.rating }).map((_, j) => (
+                  {Array.from({ length: testimonial.rating }).map((_, j) => (
                     <Star key={j} className="w-4 h-4 text-primary fill-primary" />
                   ))}
                 </div>
-                <p className="text-muted-foreground text-sm leading-relaxed italic mb-6">"{t.quote}"</p>
+                <p className="text-muted-foreground text-sm leading-relaxed italic mb-6">"{testimonial.quote}"</p>
                 <div className="border-t border-border pt-4">
-                  <p className="text-foreground font-semibold">{t.name}</p>
-                  <p className="text-primary text-xs">{t.role}</p>
-                  <p className="text-muted-foreground text-xs">{t.company}</p>
+                  <p className="text-foreground font-semibold">{testimonial.name}</p>
+                  <p className="text-primary text-xs">{testimonial.role}</p>
+                  <p className="text-muted-foreground text-xs">{testimonial.company}</p>
                 </div>
               </motion.div>
             ))}

@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { Link } from 'react-router-dom';
 import { SectionHeader } from '@/components/MediaComponents';
-import { Film, Megaphone, Smartphone, Camera, Calendar, TrendingUp, ArrowRight } from 'lucide-react';
+import { Film, Video, Smartphone, Camera, Calendar, Palette, ArrowRight } from 'lucide-react';
 import serviceVideo from '@/assets/service-video.jpg';
 import servicePhoto from '@/assets/service-photo.jpg';
 import serviceEvent from '@/assets/service-event.jpg';
@@ -13,11 +13,11 @@ const ServicesPage = () => {
 
   const services = [
     { icon: Film, key: 'services.videoProduction', image: serviceVideo },
-    { icon: Megaphone, key: 'services.commercial', image: heroBg },
+    { icon: Video, key: 'services.promotional', image: heroBg },
     { icon: Smartphone, key: 'services.socialMedia', image: servicePhoto },
     { icon: Camera, key: 'services.photography', image: servicePhoto },
     { icon: Calendar, key: 'services.eventCoverage', image: serviceEvent },
-    { icon: TrendingUp, key: 'services.mediaMarketing', image: serviceVideo },
+    { icon: Palette, key: 'services.brandMedia', image: serviceVideo },
   ];
 
   return (
