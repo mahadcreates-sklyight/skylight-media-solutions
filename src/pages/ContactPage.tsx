@@ -170,12 +170,15 @@ const ContactPage = () => {
                 </div>
               </div>
 
-              {/* Map Placeholder */}
-              <div className="glass-card aspect-video rounded-lg overflow-hidden flex items-center justify-center">
-                <div className="text-center">
-                  <MapPin className="w-10 h-10 text-primary mx-auto mb-2" />
-                  <p className="text-muted-foreground text-sm">Map embed placeholder</p>
-                </div>
+              {/* Map */}
+              <div className="glass-card aspect-video rounded-lg overflow-hidden">
+                <iframe
+                  title="Skylight Media Solutions Location"
+                  src="https://www.google.com/maps?q=Howlwadaag+Street+Mogadishu&output=embed"
+                  className="w-full h-full border-0"
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                />
               </div>
             </motion.div>
           </div>

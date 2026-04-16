@@ -5,36 +5,42 @@ import { ArrowRight } from 'lucide-react';
 import { useState } from 'react';
 import heroBg from '@/assets/hero-bg.jpg';
 import portfolioGrid from '@/assets/portfolio-grid.jpg';
+import serviceVideo from '@/assets/service-video.jpg';
+import servicePhoto from '@/assets/service-photo.jpg';
+import serviceEvent from '@/assets/service-event.jpg';
 import AnimatedCounter from '@/components/AnimatedCounter';
 import { ProjectCard, VideoPlayerModal, SectionHeader } from '@/components/MediaComponents';
-import { Film, Video, Smartphone, Camera, Calendar, Palette, Star, Quote } from 'lucide-react';
+import WhyChooseUs from '@/components/WhyChooseUs';
+import ProcessSection from '@/components/ProcessSection';
+import { DigitalMarketingPackages, EventPackages } from '@/components/Packages';
+import { Film, Megaphone, Smartphone, Camera, Calendar, Printer, Star, Quote } from 'lucide-react';
 
 const portfolioItems = [
-  { title: 'Community Gala Highlights', category: 'Events', image: '' },
-  { title: 'Business Promo — Grand Opening', category: 'Promotional', image: '' },
-  { title: 'Brand Story Film', category: 'Commercial', image: '' },
-  { title: 'Social Media Campaign', category: 'Social Media', image: '' },
-  { title: 'Conference Coverage', category: 'Events', image: '' },
-  { title: 'Product Launch Video', category: 'Promotional', image: '' },
+  { title: 'Graduation Ceremony — Full Coverage', category: 'Event Coverage', image: serviceEvent },
+  { title: 'Business Grand Opening Promo', category: 'Promotional', image: serviceVideo },
+  { title: 'Corporate Brand Profile', category: 'Commercial', image: portfolioGrid },
+  { title: 'Social Media Campaign', category: 'Social Media', image: servicePhoto },
+  { title: 'Conference Coverage', category: 'Event Coverage', image: heroBg },
+  { title: 'Product Launch Video', category: 'Promotional', image: portfolioGrid },
 ];
 
 const testimonials = [
   {
-    quote: "Skylight Media Solutions captured our community event beautifully. The video quality was outstanding and they delivered on time. Highly recommend their team!",
-    name: 'Abdi Mohamed',
-    company: 'Community Organization',
+    quote: "Skylight covered our graduation from start to finish — the live stream, photos, and edited video were all top quality. Our families abroad watched everything live.",
+    name: 'School Administrator',
+    company: 'Education Sector',
     rating: 5,
   },
   {
-    quote: "Professional, creative, and easy to work with. They understood exactly what we needed for our business promotional video and exceeded our expectations.",
-    name: 'Fatima Hassan',
-    company: 'Local Business Owner',
+    quote: "Professional, creative, and easy to work with. Their Facebook ad campaign and posters helped us reach more customers than ever before.",
+    name: 'Business Owner',
+    company: 'Local Business',
     rating: 5,
   },
   {
-    quote: "From planning to final delivery, Skylight handled everything. Our event coverage looked cinematic and our guests were impressed with the final product.",
-    name: 'Omar Ali',
-    company: 'Event Organizer',
+    quote: "From the signboard to the brochures and the launch video — Skylight handled everything in one place. Saved us so much time.",
+    name: 'Event Organizer',
+    company: 'Community Event',
     rating: 5,
   },
 ];
@@ -46,29 +52,41 @@ const HomePage = () => {
 
   const services = [
     { icon: Film, key: 'services.videoProduction' },
-    { icon: Video, key: 'services.promotional' },
+    { icon: Megaphone, key: 'services.promotional' },
     { icon: Smartphone, key: 'services.socialMedia' },
     { icon: Camera, key: 'services.photography' },
     { icon: Calendar, key: 'services.eventCoverage' },
-    { icon: Palette, key: 'services.brandMedia' },
+    { icon: Printer, key: 'services.brandMedia' },
   ];
 
   return (
     <>
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0">
+        <motion.div
+          className="absolute inset-0"
+          initial={{ scale: 1.1 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 8, ease: 'easeOut' }}
+        >
           <img src={heroBg} alt="Skylight Media Solutions — Professional Video Production" className="w-full h-full object-cover" width={1920} height={1080} />
           <div className="absolute inset-0 cinematic-overlay" />
-          <div className="absolute inset-0 bg-background/40" />
-        </div>
+          <div className="absolute inset-0 bg-background/50" />
+        </motion.div>
         <div className="relative z-10 container-custom px-4 md:px-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <p className="text-primary text-sm tracking-[0.4em] uppercase mb-6">Skylight Media Solutions</p>
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+              className="text-primary text-sm tracking-[0.4em] uppercase mb-6"
+            >
+              Skylight Media Solutions
+            </motion.p>
             <h1 className="text-4xl md:text-5xl lg:text-7xl font-display font-bold text-foreground leading-tight mb-6 max-w-4xl mx-auto">
               {t('hero.headline')}
             </h1>
@@ -76,8 +94,8 @@ const HomePage = () => {
               {t('hero.subheadline')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/contact" className="btn-primary">{t('hero.cta.primary')}</Link>
-              <Link to="/portfolio" className="btn-outline">{t('hero.cta.secondary')}</Link>
+              <Link to="/portfolio" className="btn-primary">{t('hero.cta.primary')}</Link>
+              <Link to="/contact" className="btn-outline">{t('hero.cta.secondary')}</Link>
             </div>
           </motion.div>
         </div>
@@ -98,12 +116,12 @@ const HomePage = () => {
         <div className="container-custom">
           <SectionHeader title={t('featured.title')} subtitle={t('featured.subtitle')} />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {portfolioItems.slice(0, 6).map((item, i) => (
+            {portfolioItems.map((item, i) => (
               <ProjectCard
                 key={i}
                 title={item.title}
                 category={item.category}
-                image={portfolioGrid}
+                image={item.image}
                 onClick={() => setVideoModalOpen(true)}
               />
             ))}
@@ -139,8 +157,20 @@ const HomePage = () => {
         </div>
       </section>
 
+      {/* Why Choose Us */}
+      <WhyChooseUs />
+
+      {/* Process */}
+      <ProcessSection />
+
+      {/* Digital Marketing Packages */}
+      <DigitalMarketingPackages />
+
+      {/* Event & Graduation Packages */}
+      <EventPackages />
+
       {/* Stats */}
-      <section className="section-padding bg-surface">
+      <section className="section-padding">
         <div className="container-custom">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
             <AnimatedCounter end={150} suffix="+" label={t('stats.projects')} />
@@ -152,7 +182,7 @@ const HomePage = () => {
       </section>
 
       {/* Testimonials */}
-      <section className="section-padding">
+      <section className="section-padding bg-surface">
         <div className="container-custom">
           <SectionHeader title={t('testimonials.title')} subtitle={t('testimonials.subtitle')} />
           <div className="max-w-3xl mx-auto">
@@ -179,7 +209,7 @@ const HomePage = () => {
                 <button
                   key={i}
                   onClick={() => setCurrentTestimonial(i)}
-                  className={`w-3 h-3 rounded-full transition-all ${i === currentTestimonial ? 'bg-primary w-8' : 'bg-muted-foreground/30'}`}
+                  className={`h-3 rounded-full transition-all ${i === currentTestimonial ? 'bg-primary w-8' : 'bg-muted-foreground/30 w-3'}`}
                 />
               ))}
             </div>
@@ -188,7 +218,7 @@ const HomePage = () => {
       </section>
 
       {/* CTA */}
-      <section className="section-padding bg-surface relative overflow-hidden">
+      <section className="section-padding relative overflow-hidden">
         <div className="absolute inset-0 opacity-20">
           <img src={heroBg} alt="" className="w-full h-full object-cover" loading="lazy" />
         </div>
