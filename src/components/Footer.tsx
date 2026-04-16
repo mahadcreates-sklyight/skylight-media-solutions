@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { Facebook, Instagram, Youtube, Twitter, Mail, Phone, MapPin } from 'lucide-react';
 import { useState } from 'react';
+import skylightLogo from '@/assets/skylight-logo.jpg';
 
 const Footer = () => {
   const { t } = useLanguage();
@@ -13,15 +14,23 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-surface border-t border-border/50">
-      <div className="container-custom section-padding">
+    <footer className="relative bg-surface border-t border-border/50 overflow-hidden">
+      {/* Optional brand watermark */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-[0.04] bg-center bg-no-repeat bg-contain"
+        style={{ backgroundImage: `url(${skylightLogo})` }}
+      />
+      <div className="relative container-custom section-padding">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Company Info */}
           <div className="space-y-4">
-            <div className="flex items-center gap-2">
-              <div className="w-10 h-10 rounded-sm bg-primary flex items-center justify-center">
-                <span className="text-primary-foreground font-display font-bold text-lg">S</span>
-              </div>
+            <div className="flex items-center gap-3">
+              <img
+                src={skylightLogo}
+                alt="Skylight Media Solutions"
+                className="w-12 h-12 rounded-sm object-cover ring-1 ring-primary/30"
+              />
               <div>
                 <span className="text-foreground font-display font-semibold text-lg">SKYLIGHT</span>
                 <p className="text-muted-foreground text-[10px] tracking-[0.3em] uppercase">Media Solutions</p>
