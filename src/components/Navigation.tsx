@@ -4,6 +4,7 @@ import { useLanguage } from '@/i18n/LanguageContext';
 import { Language } from '@/i18n/translations';
 import { Menu, X, Globe } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import skylightLogo from '@/assets/skylight-logo.jpg';
 
 const languages: { code: Language; label: string }[] = [
   { code: 'en', label: 'English' },
@@ -48,10 +49,12 @@ const Navigation = () => {
     >
       <div className="container-custom flex items-center justify-between px-4 md:px-8">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2 group">
-          <div className="w-10 h-10 rounded-sm bg-primary flex items-center justify-center">
-            <span className="text-primary-foreground font-display font-bold text-lg">S</span>
-          </div>
+        <Link to="/" className="flex items-center gap-3 group">
+          <img
+            src={skylightLogo}
+            alt="Skylight Media Solutions"
+            className="w-11 h-11 rounded-sm object-cover ring-1 ring-primary/30 group-hover:ring-primary transition-all"
+          />
           <div className="flex flex-col">
             <span className="text-foreground font-display font-semibold text-lg leading-tight tracking-wide">SKYLIGHT</span>
             <span className="text-muted-foreground text-[10px] tracking-[0.3em] uppercase">Media Solutions</span>
