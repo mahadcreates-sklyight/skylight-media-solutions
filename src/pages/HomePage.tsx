@@ -79,19 +79,28 @@ const HomePage = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <motion.p
+            <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="text-primary text-sm tracking-[0.4em] uppercase mb-6"
+              className="inline-flex items-center gap-3 mb-8"
             >
-              Skylight Media Solutions
-            </motion.p>
-            <h1 className="text-4xl md:text-5xl lg:text-7xl font-display font-bold text-foreground leading-tight mb-6 max-w-4xl mx-auto">
-              {t('hero.headline')}
+              <span className="h-px w-10 bg-primary/60" />
+              <span className="text-primary text-xs md:text-sm tracking-[0.5em] uppercase font-medium">
+                Skylight Media Solutions
+              </span>
+              <span className="h-px w-10 bg-primary/60" />
+            </motion.div>
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold leading-[1.1] mb-8 max-w-5xl mx-auto">
+              <span className="block text-foreground">Creative Media &amp;</span>
+              <span className="block gradient-text">Advertising Solutions</span>
+              <span className="block text-foreground/90 text-3xl md:text-4xl lg:text-5xl mt-3 font-display italic font-medium">
+                that elevate your brand
+              </span>
             </h1>
-            <p className="text-muted-foreground text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed">
-              {t('hero.subheadline')}
+            <p className="text-muted-foreground text-base md:text-lg lg:text-xl max-w-2xl mx-auto mb-12 leading-relaxed">
+              Professional videography, digital marketing, and printing services
+              <span className="text-foreground/80"> crafted to bring your ideas to life.</span>
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/portfolio" className="btn-primary">{t('hero.cta.primary')}</Link>

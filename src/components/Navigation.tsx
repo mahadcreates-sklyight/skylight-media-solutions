@@ -51,7 +51,7 @@ const Navigation = () => {
         {/* Logo */}
         <Link to="/" className="flex items-center gap-3 group">
           <img
-            src="/src/assets/skylight-logo.jpg"
+            src={skylightLogo}
             alt="Skylight Media Solutions"
             className="w-11 h-11 rounded-sm object-cover ring-1 ring-primary/30 group-hover:ring-primary transition-all"
           />
