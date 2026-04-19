@@ -1,28 +1,21 @@
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { ArrowRight } from 'lucide-react';
 import { useState } from 'react';
 import heroBg from '@/assets/hero-bg.jpg';
-import portfolioGrid from '@/assets/portfolio-grid.jpg';
-import serviceVideo from '@/assets/service-video.jpg';
-import servicePhoto from '@/assets/service-photo.jpg';
-import serviceEvent from '@/assets/service-event.jpg';
 import AnimatedCounter from '@/components/AnimatedCounter';
 import { ProjectCard, VideoPlayerModal, SectionHeader } from '@/components/MediaComponents';
 import WhyChooseUs from '@/components/WhyChooseUs';
 import ProcessSection from '@/components/ProcessSection';
 import { DigitalMarketingPackages, EventPackages } from '@/components/Packages';
 import { Film, Megaphone, Smartphone, Camera, Calendar, Printer, Star, Quote } from 'lucide-react';
+import { getFeaturedPortfolio, type PortfolioItem } from '@/data/portfolio';
 
-const portfolioItems = [
-  { title: 'Graduation Ceremony — Full Coverage', category: 'Event Coverage', image: serviceEvent },
-  { title: 'Business Grand Opening Promo', category: 'Promotional', image: serviceVideo },
-  { title: 'Corporate Brand Profile', category: 'Commercial', image: portfolioGrid },
-  { title: 'Social Media Campaign', category: 'Social Media', image: servicePhoto },
-  { title: 'Conference Coverage', category: 'Event Coverage', image: heroBg },
-  { title: 'Product Launch Video', category: 'Promotional', image: portfolioGrid },
-];
+const HERO_VIDEO_URL =
+  'https://ik.imagekit.io/byyg2uqjs/HOME%20PAGE%20HERO%20VIDEO/OUR%20BRAND%20VIDEO.mp4?updatedAt=1776473723260';
+
+const featuredProductions = getFeaturedPortfolio(6);
 
 const testimonials = [
   {
