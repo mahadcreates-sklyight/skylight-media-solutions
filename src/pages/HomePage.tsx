@@ -64,9 +64,21 @@ const HomePage = () => {
           animate={{ scale: 1 }}
           transition={{ duration: 8, ease: 'easeOut' }}
         >
-          <img src={heroBg} alt="Skylight Media Solutions — Professional Video Production" className="w-full h-full object-cover" width={1920} height={1080} />
+          <video
+            src={HERO_VIDEO_URL}
+            poster={heroBg}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            aria-hidden="true"
+            className="w-full h-full object-cover"
+          />
+          {/* Cinematic dark layer + brand-tinted gradient */}
+          <div className="absolute inset-0 bg-background/40" />
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-background/60 mix-blend-multiply" />
           <div className="absolute inset-0 cinematic-overlay" />
-          <div className="absolute inset-0 bg-background/50" />
         </motion.div>
         <div className="relative z-10 container-custom px-4 md:px-8 text-center">
           <motion.div
