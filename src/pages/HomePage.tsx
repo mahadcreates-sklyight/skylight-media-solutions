@@ -132,15 +132,24 @@ const HomePage = () => {
         <div className="container-custom">
           <SectionHeader title={t('featured.title')} subtitle={t('featured.subtitle')} />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {portfolioItems.map((item, i) => (
+            {featuredProductions.map((item) => (
               <ProjectCard
-                key={i}
+                key={item.id}
                 title={item.title}
                 category={item.category}
-                image={item.image}
-                onClick={() => setVideoModalOpen(true)}
+                image={item.thumbnail}
+                videoUrl={item.videoUrl}
+                onClick={() => {
+                  setSelectedProduction(item);
+                  setVideoModalOpen(true);
+                }}
               />
             ))}
+          </div>
+          <div className="text-center mt-12">
+            <Link to="/portfolio" className="btn-outline inline-flex items-center gap-2">
+              View Full Portfolio <ArrowRight className="w-4 h-4" />
+            </Link>
           </div>
         </div>
       </section>
