@@ -88,9 +88,13 @@ const ServicesPage = () => {
               className={`flex flex-col ${i % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-12 items-center`}
             >
               <div className="flex-1 w-full">
-                <div className="relative aspect-video rounded-lg overflow-hidden group">
-                  <img src={image} alt={t(key)} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
-                  <div className="absolute inset-0 bg-background/20" />
+                <div className="relative rounded-lg overflow-hidden group bg-surface">
+                  <img
+                    src={image}
+                    alt={t(key)}
+                    className="w-full h-auto object-contain transition-transform duration-700 group-hover:scale-105"
+                    loading="lazy"
+                  />
                 </div>
               </div>
               <div className="flex-1">
