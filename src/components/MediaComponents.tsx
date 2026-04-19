@@ -71,35 +71,62 @@ interface ProjectCardProps {
   title: string;
   category: string;
   image: string;
+  videoUrl?: string;
   onClick?: () => void;
 }
 
-export const ProjectCard = ({ title, category, image, onClick }: ProjectCardProps) => {
+export const ProjectCard = ({ title, category, image, videoUrl, onClick }: ProjectCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+
+  const handleEnter = () => {
+    setIsHovered(true);
+    if (videoRef.current) {
+      videoRef.current.currentTime = 0;
+      videoRef.current.play().catch(() => {});
+    }
+  };
+
+  const handleLeave = () => {
+    setIsHovered(false);
+    if (videoRef.current) videoRef.current.pause();
+  };
 
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      className="group relative aspect-[4/3] overflow-hidden rounded-lg cursor-pointer"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      className="group relative aspect-video overflow-hidden rounded-lg cursor-pointer bg-secondary"
+      onMouseEnter={handleEnter}
+      onMouseLeave={handleLeave}
       onClick={onClick}
     >
       <img
         src={image}
         alt={title}
-        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
         loading="lazy"
+        decoding="async"
       />
-      <div className={`absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent transition-opacity duration-500 ${isHovered ? 'opacity-100' : 'opacity-60'}`} />
-      <div className="absolute bottom-0 left-0 right-0 p-6">
+      {videoUrl && (
+        <video
+          ref={videoRef}
+          src={videoUrl}
+          muted
+          loop
+          playsInline
+          preload="none"
+          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${isHovered ? 'opacity-100' : 'opacity-0'}`}
+        />
+      )}
+      <div className={`absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent transition-opacity duration-500 ${isHovered ? 'opacity-100' : 'opacity-70'}`} />
+      <div className="absolute bottom-0 left-0 right-0 p-6 z-10">
         <p className="text-primary text-xs tracking-widest uppercase mb-1">{category}</p>
         <h3 className="text-foreground font-display text-xl font-semibold">{title}</h3>
       </div>
-      <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`}>
-        <div className="w-16 h-16 rounded-full bg-primary/90 flex items-center justify-center">
+      <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 z-10 ${isHovered ? 'opacity-100' : 'opacity-0'}`}>
+        <div className="w-16 h-16 rounded-full bg-primary/90 flex items-center justify-center shadow-lg">
           <Play className="w-7 h-7 text-primary-foreground ml-1" />
         </div>
       </div>
