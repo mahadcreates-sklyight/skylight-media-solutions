@@ -34,13 +34,24 @@ export const VideoPlayerModal = ({ isOpen, onClose, videoUrl, title }: VideoPlay
               <X className="w-5 h-5" />
             </button>
             {videoUrl ? (
-              <iframe
-                src={videoUrl}
-                className="w-full h-full"
-                allow="autoplay; fullscreen"
-                allowFullScreen
-                title={title || 'Video Player'}
-              />
+              videoUrl.match(/\.(mp4|webm|mov)/i) ? (
+                <video
+                  src={videoUrl}
+                  className="w-full h-full object-contain bg-black"
+                  controls
+                  autoPlay
+                  playsInline
+                  preload="metadata"
+                />
+              ) : (
+                <iframe
+                  src={videoUrl}
+                  className="w-full h-full"
+                  allow="autoplay; fullscreen"
+                  allowFullScreen
+                  title={title || 'Video Player'}
+                />
+              )
             ) : (
               <div className="w-full h-full flex items-center justify-center">
                 <div className="text-center">
