@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '@/i18n/LanguageContext';
-import { ArrowRight } from 'lucide-react';
-import { useState } from 'react';
+import { ArrowRight, Volume2, VolumeX } from 'lucide-react';
+import { useState, useRef } from 'react';
 import heroBg from '@/assets/hero-bg.jpg';
 import AnimatedCounter from '@/components/AnimatedCounter';
 import { ProjectCard, VideoPlayerModal, SectionHeader } from '@/components/MediaComponents';
@@ -45,6 +45,19 @@ const HomePage = () => {
   const [videoModalOpen, setVideoModalOpen] = useState(false);
   const [selectedProduction, setSelectedProduction] = useState<PortfolioItem | null>(null);
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  const [heroMuted, setHeroMuted] = useState(true);
+  const heroVideoRef = useRef<HTMLVideoElement | null>(null);
+
+  const toggleHeroSound = () => {
+    const v = heroVideoRef.current;
+    if (!v) return;
+    const next = !heroMuted;
+    v.muted = next;
+    if (!next) {
+      v.play().catch(() => {});
+    }
+    setHeroMuted(next);
+  };
 
   const services = [
     { icon: Film, key: 'services.videoProduction' },
@@ -66,10 +79,11 @@ const HomePage = () => {
           transition={{ duration: 8, ease: 'easeOut' }}
         >
           <video
+            ref={heroVideoRef}
             src={HERO_VIDEO_URL}
             poster={heroBg}
             autoPlay
-            muted
+            muted={heroMuted}
             loop
             playsInline
             preload="auto"
@@ -81,6 +95,16 @@ const HomePage = () => {
           <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-background/60 mix-blend-multiply" />
           <div className="absolute inset-0 cinematic-overlay" />
         </motion.div>
+
+        {/* Sound toggle for hero video (autoplay must start muted per browser policy) */}
+        <button
+          type="button"
+          onClick={toggleHeroSound}
+          aria-label={heroMuted ? 'Unmute hero video' : 'Mute hero video'}
+          className="absolute bottom-8 right-6 md:right-10 z-20 w-12 h-12 rounded-full bg-background/60 backdrop-blur-md border border-primary/30 text-foreground hover:bg-primary hover:text-primary-foreground transition-all flex items-center justify-center shadow-lg"
+        >
+          {heroMuted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
+        </button>
         <div className="relative z-10 container-custom px-4 md:px-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
