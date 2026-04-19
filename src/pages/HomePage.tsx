@@ -12,8 +12,10 @@ import { DigitalMarketingPackages, EventPackages } from '@/components/Packages';
 import { Film, Megaphone, Smartphone, Camera, Calendar, Printer, Star, Quote } from 'lucide-react';
 import { getFeaturedPortfolio, type PortfolioItem } from '@/data/portfolio';
 
+// `tr=orig-true` serves the original MP4 from ImageKit and bypasses the
+// account's video-transformation quota (which was returning 403 errors).
 const HERO_VIDEO_URL =
-  'https://ik.imagekit.io/byyg2uqjs/HOME%20PAGE%20HERO%20VIDEO/OUR%20BRAND%20VIDEO.mp4?updatedAt=1776473723260';
+  'https://ik.imagekit.io/byyg2uqjs/HOME%20PAGE%20HERO%20VIDEO/OUR%20BRAND%20VIDEO.mp4?updatedAt=1776473723260&tr=orig-true';
 
 const featuredProductions = getFeaturedPortfolio(6);
 
