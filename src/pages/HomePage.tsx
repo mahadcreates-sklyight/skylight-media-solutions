@@ -40,7 +40,9 @@ const testimonials = [
 
 const HomePage = () => {
   const { t } = useLanguage();
+  const navigate = useNavigate();
   const [videoModalOpen, setVideoModalOpen] = useState(false);
+  const [selectedProduction, setSelectedProduction] = useState<PortfolioItem | null>(null);
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
 
   const services = [
