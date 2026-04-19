@@ -263,7 +263,8 @@ const HomePage = () => {
       <VideoPlayerModal
         isOpen={videoModalOpen}
         onClose={() => setVideoModalOpen(false)}
-        title="Project Video"
+        videoUrl={selectedProduction?.videoUrl}
+        title={selectedProduction?.title || 'Project Video'}
       />
     </>
   );
