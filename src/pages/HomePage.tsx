@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { ArrowRight } from 'lucide-react';
 import { useState } from 'react';
