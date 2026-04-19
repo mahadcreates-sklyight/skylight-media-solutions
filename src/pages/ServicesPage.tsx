@@ -8,20 +8,26 @@ import {
   CreditCard, Award, FileText, Mail, Stamp, BookOpen, Shirt, Coffee, ShoppingBag,
 } from 'lucide-react';
 import serviceVideo from '@/assets/service-video.jpg';
-import servicePhoto from '@/assets/service-photo.jpg';
-import serviceEvent from '@/assets/service-event.jpg';
-import heroBg from '@/assets/hero-bg.jpg';
+
+const SERVICE_IMAGES = {
+  videoProduction: 'https://ik.imagekit.io/byyg2uqjs/SERVICES/VIDEO%20PRODUCTION.png?updatedAt=1776473404236',
+  digitalMarketing: 'https://ik.imagekit.io/byyg2uqjs/SERVICES/DIGITAL%20MARKETING.png?updatedAt=1776473404773',
+  socialMedia: 'https://ik.imagekit.io/byyg2uqjs/SERVICES/Social%20Media%20Content.png?updatedAt=1776473404363',
+  photography: 'https://ik.imagekit.io/byyg2uqjs/SERVICES/Photography.png?updatedAt=1776473404401',
+  eventCoverage: 'https://ik.imagekit.io/byyg2uqjs/SERVICES/Event%20Coverage.png?updatedAt=1776473404335',
+  printing: 'https://ik.imagekit.io/byyg2uqjs/SERVICES/Printing%20and%20Advertising.png?updatedAt=1776473403873',
+};
 
 const ServicesPage = () => {
   const { t } = useLanguage();
 
   const services = [
-    { icon: Film, key: 'services.videoProduction', image: serviceVideo },
-    { icon: Megaphone, key: 'services.promotional', image: heroBg },
-    { icon: Smartphone, key: 'services.socialMedia', image: servicePhoto },
-    { icon: Camera, key: 'services.photography', image: servicePhoto },
-    { icon: Calendar, key: 'services.eventCoverage', image: serviceEvent },
-    { icon: Printer, key: 'services.brandMedia', image: serviceVideo },
+    { icon: Film, key: 'services.videoProduction', image: SERVICE_IMAGES.videoProduction },
+    { icon: Megaphone, key: 'services.promotional', image: SERVICE_IMAGES.digitalMarketing },
+    { icon: Smartphone, key: 'services.socialMedia', image: SERVICE_IMAGES.socialMedia },
+    { icon: Camera, key: 'services.photography', image: SERVICE_IMAGES.photography },
+    { icon: Calendar, key: 'services.eventCoverage', image: SERVICE_IMAGES.eventCoverage },
+    { icon: Printer, key: 'services.brandMedia', image: SERVICE_IMAGES.printing },
   ];
 
   const printingItems = [
