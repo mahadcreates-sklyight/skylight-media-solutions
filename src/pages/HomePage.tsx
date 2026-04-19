@@ -4,25 +4,18 @@ import { useLanguage } from '@/i18n/LanguageContext';
 import { ArrowRight } from 'lucide-react';
 import { useState } from 'react';
 import heroBg from '@/assets/hero-bg.jpg';
-import portfolioGrid from '@/assets/portfolio-grid.jpg';
-import serviceVideo from '@/assets/service-video.jpg';
-import servicePhoto from '@/assets/service-photo.jpg';
-import serviceEvent from '@/assets/service-event.jpg';
 import AnimatedCounter from '@/components/AnimatedCounter';
 import { ProjectCard, VideoPlayerModal, SectionHeader } from '@/components/MediaComponents';
 import WhyChooseUs from '@/components/WhyChooseUs';
 import ProcessSection from '@/components/ProcessSection';
 import { DigitalMarketingPackages, EventPackages } from '@/components/Packages';
 import { Film, Megaphone, Smartphone, Camera, Calendar, Printer, Star, Quote } from 'lucide-react';
+import { getFeaturedPortfolio, type PortfolioItem } from '@/data/portfolio';
 
-const portfolioItems = [
-  { title: 'Graduation Ceremony — Full Coverage', category: 'Event Coverage', image: serviceEvent },
-  { title: 'Business Grand Opening Promo', category: 'Promotional', image: serviceVideo },
-  { title: 'Corporate Brand Profile', category: 'Commercial', image: portfolioGrid },
-  { title: 'Social Media Campaign', category: 'Social Media', image: servicePhoto },
-  { title: 'Conference Coverage', category: 'Event Coverage', image: heroBg },
-  { title: 'Product Launch Video', category: 'Promotional', image: portfolioGrid },
-];
+const HERO_VIDEO_URL =
+  'https://ik.imagekit.io/byyg2uqjs/HOME%20PAGE%20HERO%20VIDEO/OUR%20BRAND%20VIDEO.mp4?updatedAt=1776473723260';
+
+const featuredProductions = getFeaturedPortfolio(6);
 
 const testimonials = [
   {
@@ -48,6 +41,7 @@ const testimonials = [
 const HomePage = () => {
   const { t } = useLanguage();
   const [videoModalOpen, setVideoModalOpen] = useState(false);
+  const [selectedProduction, setSelectedProduction] = useState<PortfolioItem | null>(null);
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
 
   const services = [
@@ -69,9 +63,21 @@ const HomePage = () => {
           animate={{ scale: 1 }}
           transition={{ duration: 8, ease: 'easeOut' }}
         >
-          <img src={heroBg} alt="Skylight Media Solutions — Professional Video Production" className="w-full h-full object-cover" width={1920} height={1080} />
+          <video
+            src={HERO_VIDEO_URL}
+            poster={heroBg}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            aria-hidden="true"
+            className="w-full h-full object-cover"
+          />
+          {/* Cinematic dark layer + brand-tinted gradient */}
+          <div className="absolute inset-0 bg-background/40" />
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-background/60 mix-blend-multiply" />
           <div className="absolute inset-0 cinematic-overlay" />
-          <div className="absolute inset-0 bg-background/50" />
         </motion.div>
         <div className="relative z-10 container-custom px-4 md:px-8 text-center">
           <motion.div
@@ -125,15 +131,24 @@ const HomePage = () => {
         <div className="container-custom">
           <SectionHeader title={t('featured.title')} subtitle={t('featured.subtitle')} />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {portfolioItems.map((item, i) => (
+            {featuredProductions.map((item) => (
               <ProjectCard
-                key={i}
+                key={item.id}
                 title={item.title}
                 category={item.category}
-                image={item.image}
-                onClick={() => setVideoModalOpen(true)}
+                image={item.thumbnail}
+                videoUrl={item.videoUrl}
+                onClick={() => {
+                  setSelectedProduction(item);
+                  setVideoModalOpen(true);
+                }}
               />
             ))}
+          </div>
+          <div className="text-center mt-12">
+            <Link to="/portfolio" className="btn-outline inline-flex items-center gap-2">
+              View Full Portfolio <ArrowRight className="w-4 h-4" />
+            </Link>
           </div>
         </div>
       </section>
@@ -247,7 +262,8 @@ const HomePage = () => {
       <VideoPlayerModal
         isOpen={videoModalOpen}
         onClose={() => setVideoModalOpen(false)}
-        title="Project Video"
+        videoUrl={selectedProduction?.videoUrl}
+        title={selectedProduction?.title || 'Project Video'}
       />
     </>
   );

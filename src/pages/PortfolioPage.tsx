@@ -1,43 +1,27 @@
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 import { useLanguage } from '@/i18n/LanguageContext';
-import { SectionHeader, ProjectCard, VideoPlayerModal } from '@/components/MediaComponents';
+import { ProjectCard, VideoPlayerModal } from '@/components/MediaComponents';
+import { portfolioItems, portfolioCategories, type PortfolioItem } from '@/data/portfolio';
 import portfolioGrid from '@/assets/portfolio-grid.jpg';
-import heroBg from '@/assets/hero-bg.jpg';
-import serviceVideo from '@/assets/service-video.jpg';
-import servicePhoto from '@/assets/service-photo.jpg';
-import serviceEvent from '@/assets/service-event.jpg';
-
-const projects = [
-  { id: 1, title: 'Community Gala — Full Coverage', category: 'Events', image: serviceEvent },
-  { id: 2, title: 'Business Grand Opening Promo', category: 'Promotional', image: serviceVideo },
-  { id: 3, title: 'Corporate Brand Story', category: 'Commercial', image: portfolioGrid },
-  { id: 4, title: 'Social Media Series — Restaurant', category: 'Social Media', image: servicePhoto },
-  { id: 5, title: 'Conference & Seminar Highlights', category: 'Events', image: heroBg },
-  { id: 6, title: 'Product Launch Campaign', category: 'Brand Campaigns', image: portfolioGrid },
-  { id: 7, title: 'Wedding Highlight Film', category: 'Events', image: serviceEvent },
-  { id: 8, title: 'Nonprofit Awareness Video', category: 'Promotional', image: serviceVideo },
-  { id: 9, title: 'Real Estate Showcase', category: 'Commercial', image: servicePhoto },
-];
-
-const categories = ['All', 'Commercial', 'Promotional', 'Social Media', 'Events', 'Brand Campaigns'];
 
 const PortfolioPage = () => {
   const { t } = useLanguage();
-  const [activeCategory, setActiveCategory] = useState('All');
+  const [activeCategory, setActiveCategory] = useState<string>('All');
   const [videoOpen, setVideoOpen] = useState(false);
-  const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
+  const [selectedProject, setSelectedProject] = useState<PortfolioItem | null>(null);
 
   const catKeys: Record<string, string> = {
     'All': 'portfolio.all',
-    'Commercial': 'portfolio.commercial',
-    'Promotional': 'portfolio.promotional',
-    'Social Media': 'portfolio.socialMedia',
-    'Events': 'portfolio.events',
-    'Brand Campaigns': 'portfolio.brandCampaigns',
+    'COMMERCIAL': 'portfolio.commercial',
+    'PROMOTIONAL': 'portfolio.promotional',
+    'EVENT': 'portfolio.events',
+    'BRAND CAMPAIGN': 'portfolio.brandCampaigns',
   };
 
-  const filtered = activeCategory === 'All' ? projects : projects.filter(p => p.category === activeCategory);
+  const filtered = activeCategory === 'All'
+    ? portfolioItems
+    : portfolioItems.filter(p => p.category === activeCategory);
 
   return (
     <>
@@ -60,29 +44,45 @@ const PortfolioPage = () => {
       <section className="section-padding">
         <div className="container-custom">
           <div className="flex flex-wrap justify-center gap-3 mb-12">
-            {categories.map(cat => (
+            {portfolioCategories.map(cat => (
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
                 className={`px-5 py-2 rounded-sm text-xs tracking-widest uppercase transition-all ${
-                  activeCategory === cat ? 'bg-primary text-primary-foreground' : 'bg-secondary text-muted-foreground hover:text-foreground'
+                  activeCategory === cat
+                    ? 'bg-primary text-primary-foreground'
+                    : 'bg-secondary text-muted-foreground hover:text-foreground'
                 }`}
               >
-                {t(catKeys[cat])}
+                {catKeys[cat] ? t(catKeys[cat]) : cat}
               </button>
             ))}
           </div>
 
           <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filtered.map(project => (
-              <ProjectCard
-                key={project.id}
-                title={project.title}
-                category={project.category}
-                image={project.image}
-                onClick={() => { setSelectedProject(project); setVideoOpen(true); }}
-              />
-            ))}
+            <AnimatePresence mode="popLayout">
+              {filtered.map(project => (
+                <motion.div
+                  key={project.id}
+                  layout
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <ProjectCard
+                    title={project.title}
+                    category={project.category}
+                    image={project.thumbnail}
+                    videoUrl={project.videoUrl}
+                    onClick={() => { setSelectedProject(project); setVideoOpen(true); }}
+                  />
+                  <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
+                    {project.description}
+                  </p>
+                </motion.div>
+              ))}
+            </AnimatePresence>
           </motion.div>
         </div>
       </section>
@@ -90,6 +90,7 @@ const PortfolioPage = () => {
       <VideoPlayerModal
         isOpen={videoOpen}
         onClose={() => setVideoOpen(false)}
+        videoUrl={selectedProject?.videoUrl}
         title={selectedProject?.title}
       />
     </>
