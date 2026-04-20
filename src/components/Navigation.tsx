@@ -75,7 +75,7 @@ const Navigation = () => {
                 className={`relative px-3.5 py-2 text-[11px] font-semibold tracking-[0.18em] uppercase rounded-full transition-all duration-300 ${
                   active
                     ? 'text-primary-foreground bg-primary shadow-[0_6px_18px_-6px_hsl(var(--primary)/0.7)]'
-                    : 'text-bronze-light hover:text-primary-foreground hover:bg-primary/80'
+                    : 'text-foreground/80 hover:text-primary-foreground hover:bg-primary/80'
                 }`}
               >
                 {t(link.key)}
