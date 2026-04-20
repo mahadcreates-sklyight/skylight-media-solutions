@@ -48,21 +48,13 @@ const Navigation = () => {
       }`}
     >
       <div className="container-custom flex items-center justify-between px-4 md:px-8">
-        {/* Logo */}
-        <Link to="/" className="flex items-center gap-3 group">
+        {/* Logo — uses the logo image itself to preserve exact wordmark typography */}
+        <Link to="/" className="flex items-center group" aria-label="Skylight Media Solutions">
           <img
             src={skylightLogo}
             alt="Skylight Media Solutions"
-            className="w-11 h-11 rounded-sm object-cover ring-1 ring-primary/30 group-hover:ring-primary transition-all"
+            className="h-12 md:h-14 w-auto object-contain transition-all duration-300 group-hover:drop-shadow-[0_0_18px_hsl(var(--primary)/0.55)]"
           />
-          <div className="flex flex-col leading-none">
-            <span className="font-display font-bold text-xl md:text-2xl tracking-[0.18em] gradient-text drop-shadow-[0_1px_8px_hsl(var(--primary)/0.35)]">
-              SKYLIGHT
-            </span>
-            <span className="text-muted-foreground text-[10px] md:text-[11px] tracking-[0.42em] uppercase mt-1 font-medium">
-              Media Solutions
-            </span>
-          </div>
         </Link>
 
         {/* Desktop Nav */}
