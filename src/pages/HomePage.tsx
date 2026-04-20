@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { ArrowRight, Volume2, VolumeX } from 'lucide-react';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import heroBg from '@/assets/hero-bg.jpg';
 import AnimatedCounter from '@/components/AnimatedCounter';
 import { ProjectCard, VideoPlayerModal, SectionHeader } from '@/components/MediaComponents';
@@ -56,6 +56,21 @@ const HomePage = () => {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [heroMuted, setHeroMuted] = useState(true);
   const heroVideoRef = useRef<HTMLVideoElement | null>(null);
+
+  // Attempt to play with sound on mount; browsers usually block this and we
+  // fall back to muted autoplay (the toggle button lets the user enable sound).
+  useEffect(() => {
+    const v = heroVideoRef.current;
+    if (!v) return;
+    v.muted = false;
+    v.play()
+      .then(() => setHeroMuted(false))
+      .catch(() => {
+        v.muted = true;
+        setHeroMuted(true);
+        v.play().catch(() => {});
+      });
+  }, []);
 
   const toggleHeroSound = () => {
     const v = heroVideoRef.current;
