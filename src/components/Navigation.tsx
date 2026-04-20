@@ -45,34 +45,43 @@ const Navigation = () => {
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled ? 'bg-background/95 backdrop-blur-xl border-b border-border/50 py-3' : 'bg-transparent py-5'
+        isScrolled ? 'bg-background/85 backdrop-blur-2xl border-b border-primary/20 py-3 shadow-[0_8px_30px_-10px_hsl(var(--primary)/0.3)]' : 'bg-background/40 backdrop-blur-md py-5'
       }`}
     >
-      <div className="container-custom flex items-center justify-between px-4 md:px-8">
-        {/* Logo — uses the logo image itself to preserve exact wordmark typography */}
-        <Link to="/" className="flex items-center group" aria-label="Skylight Media Solutions">
+      <div className="container-custom flex items-center justify-between px-4 md:px-8 gap-4">
+        {/* Logo + Wordmark — wordmark image preserves the exact logo typography */}
+        <Link to="/" className="flex items-center gap-3 group shrink-0" aria-label="Skylight Media Solutions">
           <img
             src={skylightLogo}
+            alt=""
+            aria-hidden
+            className="h-11 md:h-12 w-auto object-contain rounded-full transition-all duration-300 group-hover:drop-shadow-[0_0_18px_hsl(var(--primary)/0.6)]"
+          />
+          <img
+            src={skylightWordmark}
             alt="Skylight Media Solutions"
-            className="h-12 md:h-14 w-auto object-contain transition-all duration-300 group-hover:drop-shadow-[0_0_18px_hsl(var(--primary)/0.55)]"
+            className="h-7 md:h-9 w-auto object-contain transition-all duration-300 group-hover:drop-shadow-[0_0_14px_hsl(var(--primary)/0.55)]"
           />
         </Link>
 
-        {/* Desktop Nav */}
-        <div className="hidden lg:flex items-center gap-1">
-          {navLinks.map((link) => (
-            <Link
-              key={link.path}
-              to={link.path}
-              className={`px-3 py-2 text-xs tracking-widest uppercase transition-colors duration-300 ${
-                location.pathname === link.path
-                  ? 'text-primary'
-                  : 'text-muted-foreground hover:text-foreground'
-              }`}
-            >
-              {t(link.key)}
-            </Link>
-          ))}
+        {/* Desktop Nav — translucent pill bar with brand-tinted links */}
+        <div className="hidden lg:flex items-center gap-1 px-2 py-1.5 rounded-full bg-foreground/[0.04] backdrop-blur-md border border-primary/15 shadow-inner">
+          {navLinks.map((link) => {
+            const active = location.pathname === link.path;
+            return (
+              <Link
+                key={link.path}
+                to={link.path}
+                className={`relative px-3.5 py-2 text-[11px] font-semibold tracking-[0.18em] uppercase rounded-full transition-all duration-300 ${
+                  active
+                    ? 'text-primary-foreground bg-primary shadow-[0_6px_18px_-6px_hsl(var(--primary)/0.7)]'
+                    : 'text-bronze-light hover:text-primary-foreground hover:bg-primary/80'
+                }`}
+              >
+                {t(link.key)}
+              </Link>
+            );
+          })}
         </div>
 
         {/* Language Switcher + Mobile Toggle */}
