@@ -3,6 +3,7 @@ import { useLanguage } from '@/i18n/LanguageContext';
 import { Facebook, Instagram, Youtube, Twitter, Mail, Phone, MapPin } from 'lucide-react';
 import { useState } from 'react';
 import skylightLogo from '@/assets/skylight-logo.jpg';
+import skylightWordmark from '@/assets/skylight-wordmark.png';
 
 const Footer = () => {
   const { t } = useLanguage();
