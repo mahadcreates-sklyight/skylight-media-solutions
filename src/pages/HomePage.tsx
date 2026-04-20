@@ -2,20 +2,29 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { ArrowRight, Volume2, VolumeX } from 'lucide-react';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import heroBg from '@/assets/hero-bg.jpg';
 import AnimatedCounter from '@/components/AnimatedCounter';
 import { ProjectCard, VideoPlayerModal, SectionHeader } from '@/components/MediaComponents';
 import WhyChooseUs from '@/components/WhyChooseUs';
 import ProcessSection from '@/components/ProcessSection';
 import { DigitalMarketingPackages, EventPackages } from '@/components/Packages';
-import { Film, Megaphone, Smartphone, Camera, Calendar, Printer, Star, Quote } from 'lucide-react';
+import { Star, Quote } from 'lucide-react';
 import { getFeaturedPortfolio, type PortfolioItem } from '@/data/portfolio';
 
 // `tr=orig-true` serves the original MP4 from ImageKit and bypasses the
 // account's video-transformation quota (which was returning 403 errors).
 const HERO_VIDEO_URL =
   'https://ik.imagekit.io/byyg2uqjs/HOME%20PAGE%20HERO%20VIDEO/OUR%20BRAND%20VIDEO.mp4?updatedAt=1776473723260&tr=orig-true';
+
+const SERVICE_ICONS = {
+  videoProduction: 'https://ik.imagekit.io/byyg2uqjs/Service%20Icons/Video%20Production%20icon.webp?updatedAt=1776473595749',
+  digitalMarketing: 'https://ik.imagekit.io/byyg2uqjs/Service%20Icons/Digital%20Marketing%20Icon.webp?updatedAt=1776473595692',
+  socialMedia: 'https://ik.imagekit.io/byyg2uqjs/Service%20Icons/Social%20Media%20Icon.webp?updatedAt=1776473595751',
+  photography: 'https://ik.imagekit.io/byyg2uqjs/Service%20Icons/Photography%20Icon.webp?updatedAt=1776473596199',
+  eventCoverage: 'https://ik.imagekit.io/byyg2uqjs/Service%20Icons/Event%20Coverage%20Icon.webp?updatedAt=1776473595522',
+  printing: 'https://ik.imagekit.io/byyg2uqjs/Service%20Icons/Printing%20Icon.webp?updatedAt=1776473596466',
+};
 
 const featuredProductions = getFeaturedPortfolio(6);
 
@@ -48,6 +57,21 @@ const HomePage = () => {
   const [heroMuted, setHeroMuted] = useState(true);
   const heroVideoRef = useRef<HTMLVideoElement | null>(null);
 
+  // Attempt to play with sound on mount; browsers usually block this and we
+  // fall back to muted autoplay (the toggle button lets the user enable sound).
+  useEffect(() => {
+    const v = heroVideoRef.current;
+    if (!v) return;
+    v.muted = false;
+    v.play()
+      .then(() => setHeroMuted(false))
+      .catch(() => {
+        v.muted = true;
+        setHeroMuted(true);
+        v.play().catch(() => {});
+      });
+  }, []);
+
   const toggleHeroSound = () => {
     const v = heroVideoRef.current;
     if (!v) return;
@@ -60,12 +84,12 @@ const HomePage = () => {
   };
 
   const services = [
-    { icon: Film, key: 'services.videoProduction' },
-    { icon: Megaphone, key: 'services.promotional' },
-    { icon: Smartphone, key: 'services.socialMedia' },
-    { icon: Camera, key: 'services.photography' },
-    { icon: Calendar, key: 'services.eventCoverage' },
-    { icon: Printer, key: 'services.brandMedia' },
+    { iconImg: SERVICE_ICONS.videoProduction, key: 'services.videoProduction' },
+    { iconImg: SERVICE_ICONS.digitalMarketing, key: 'services.promotional' },
+    { iconImg: SERVICE_ICONS.socialMedia, key: 'services.socialMedia' },
+    { iconImg: SERVICE_ICONS.photography, key: 'services.photography' },
+    { iconImg: SERVICE_ICONS.eventCoverage, key: 'services.eventCoverage' },
+    { iconImg: SERVICE_ICONS.printing, key: 'services.brandMedia' },
   ];
 
   return (
@@ -184,17 +208,23 @@ const HomePage = () => {
         <div className="container-custom">
           <SectionHeader title={t('services.title')} subtitle={t('services.subtitle')} />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {services.map(({ icon: Icon, key }, i) => (
+            {services.map(({ iconImg, key }, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="glass-card p-8 hover-lift group"
+                viewport={{ once: true, margin: '-50px' }}
+                transition={{ delay: i * 0.1, duration: 0.6, ease: 'easeOut' }}
+                className="glass-card p-8 hover-lift hover-border-glow group flex flex-col items-center text-center"
               >
-                <div className="w-14 h-14 rounded-sm bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors">
-                  <Icon className="w-7 h-7 text-primary" />
+                <div className="icon-glow-wrap mb-6">
+                  <img
+                    src={iconImg}
+                    alt={t(key)}
+                    loading="lazy"
+                    decoding="async"
+                    className="w-[72px] h-[72px] md:w-[88px] md:h-[88px] object-contain transition-transform duration-300 group-hover:scale-110 group-hover:-translate-y-1"
+                  />
                 </div>
                 <h3 className="text-foreground font-display text-xl font-semibold mb-3">{t(key)}</h3>
                 <p className="text-muted-foreground text-sm leading-relaxed mb-4">{t(`${key}.desc`)}</p>

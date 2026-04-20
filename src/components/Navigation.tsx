@@ -55,9 +55,13 @@ const Navigation = () => {
             alt="Skylight Media Solutions"
             className="w-11 h-11 rounded-sm object-cover ring-1 ring-primary/30 group-hover:ring-primary transition-all"
           />
-          <div className="flex flex-col">
-            <span className="text-foreground font-display font-semibold text-lg leading-tight tracking-wide">SKYLIGHT</span>
-            <span className="text-muted-foreground text-[10px] tracking-[0.3em] uppercase">Media Solutions</span>
+          <div className="flex flex-col leading-none">
+            <span className="font-display font-bold text-xl md:text-2xl tracking-[0.18em] gradient-text drop-shadow-[0_1px_8px_hsl(var(--primary)/0.35)]">
+              SKYLIGHT
+            </span>
+            <span className="text-muted-foreground text-[10px] md:text-[11px] tracking-[0.42em] uppercase mt-1 font-medium">
+              Media Solutions
+            </span>
           </div>
         </Link>
 
