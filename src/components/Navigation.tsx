@@ -5,6 +5,7 @@ import { Language } from '@/i18n/translations';
 import { Menu, X, Globe } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import skylightLogo from '@/assets/skylight-logo.jpg';
+import skylightWordmark from '@/assets/skylight-wordmark.png';
 
 const languages: { code: Language; label: string }[] = [
   { code: 'en', label: 'English' },
