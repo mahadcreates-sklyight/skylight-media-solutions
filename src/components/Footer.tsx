@@ -26,11 +26,17 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Company Info */}
           <div className="space-y-4">
-            <Link to="/" aria-label="Skylight Media Solutions" className="inline-block group">
+            <Link to="/" aria-label="Skylight Media Solutions" className="inline-flex items-center gap-3 group">
               <img
                 src={skylightLogo}
+                alt=""
+                aria-hidden
+                className="h-12 md:h-14 w-auto object-contain rounded-full transition-all duration-300 group-hover:drop-shadow-[0_0_18px_hsl(var(--primary)/0.5)]"
+              />
+              <img
+                src={skylightWordmark}
                 alt="Skylight Media Solutions"
-                className="h-14 md:h-16 w-auto object-contain transition-all duration-300 group-hover:drop-shadow-[0_0_18px_hsl(var(--primary)/0.5)]"
+                className="h-8 md:h-10 w-auto object-contain transition-all duration-300 group-hover:drop-shadow-[0_0_14px_hsl(var(--primary)/0.5)]"
               />
             </Link>
             <p className="text-muted-foreground text-sm leading-relaxed">
