@@ -25,17 +25,13 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Company Info */}
           <div className="space-y-4">
-            <div className="flex items-center gap-3">
+            <Link to="/" aria-label="Skylight Media Solutions" className="inline-block group">
               <img
                 src={skylightLogo}
                 alt="Skylight Media Solutions"
-                className="w-12 h-12 rounded-sm object-cover ring-1 ring-primary/30"
+                className="h-14 md:h-16 w-auto object-contain transition-all duration-300 group-hover:drop-shadow-[0_0_18px_hsl(var(--primary)/0.5)]"
               />
-              <div>
-                <span className="text-foreground font-display font-semibold text-lg">SKYLIGHT</span>
-                <p className="text-muted-foreground text-[10px] tracking-[0.3em] uppercase">Media Solutions</p>
-              </div>
-            </div>
+            </Link>
             <p className="text-muted-foreground text-sm leading-relaxed">
               {t('footer.description')}
             </p>

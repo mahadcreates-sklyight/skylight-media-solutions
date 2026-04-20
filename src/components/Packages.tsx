@@ -29,7 +29,7 @@ export const DigitalMarketingPackages = () => {
     <section className="section-padding">
       <div className="container-custom">
         <SectionHeader title={t('packages.title')} subtitle={t('packages.subtitle')} />
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch">
           {plans.map((plan, i) => (
             <motion.div
               key={i}
@@ -37,27 +37,30 @@ export const DigitalMarketingPackages = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1, duration: 0.5 }}
-              className={`relative glass-card p-8 hover-lift flex flex-col ${
-                plan.featured ? 'border-primary/60 ring-1 ring-primary/30' : ''
-              }`}
+              className={`package-card ${plan.featured ? 'package-card-featured md:scale-[1.04]' : ''}`}
             >
               {plan.featured && (
-                <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground text-[10px] tracking-[0.25em] uppercase px-3 py-1 rounded-sm font-semibold">
+                <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground text-[10px] tracking-[0.25em] uppercase px-4 py-1.5 rounded-sm font-semibold shadow-[0_8px_24px_hsl(var(--primary)/0.5)] z-20">
                   {t('packages.popular')}
                 </span>
               )}
-              <h3 className="text-foreground font-display text-2xl font-semibold mb-6 text-center">{plan.name}</h3>
-              <ul className="space-y-3 flex-1 mb-8">
-                {plan.items.map((item, j) => (
-                  <li key={j} className="flex items-start gap-3 text-sm text-muted-foreground">
-                    <Check className="w-4 h-4 text-primary shrink-0 mt-0.5" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-              <Link to="/contact" className={plan.featured ? 'btn-primary text-center' : 'btn-outline text-center'}>
-                {t('packages.cta')}
-              </Link>
+              <div className="relative z-10 flex flex-col flex-1">
+                <h3 className="text-foreground font-display text-2xl md:text-3xl font-semibold mb-2 text-center">{plan.name}</h3>
+                <div className="w-12 h-px bg-primary/50 mx-auto mb-6" />
+                <ul className="space-y-3.5 flex-1 mb-8">
+                  {plan.items.map((item, j) => (
+                    <li key={j} className="flex items-start gap-3 text-sm text-muted-foreground">
+                      <span className="mt-0.5 flex items-center justify-center w-5 h-5 rounded-full bg-primary/15 ring-1 ring-primary/30 shrink-0">
+                        <Check className="w-3 h-3 text-primary" />
+                      </span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+                <Link to="/contact" className={plan.featured ? 'btn-primary text-center' : 'btn-outline text-center'}>
+                  {t('packages.cta')}
+                </Link>
+              </div>
             </motion.div>
           ))}
         </div>
@@ -109,23 +112,27 @@ export const EventPackages = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1, duration: 0.5 }}
-              className="glass-card p-8 hover-lift flex flex-col"
+              className="package-card"
             >
-              <div className="w-14 h-14 rounded-sm bg-primary/10 flex items-center justify-center mb-6">
-                <Icon className="w-7 h-7 text-primary" />
+              <div className="relative z-10 flex flex-col flex-1">
+                <div className="w-16 h-16 rounded-xl bg-primary/10 ring-1 ring-primary/30 flex items-center justify-center mb-6 shadow-[0_0_24px_hsl(var(--primary)/0.25)]">
+                  <Icon className="w-8 h-8 text-primary" />
+                </div>
+                <h3 className="text-foreground font-display text-2xl md:text-3xl font-semibold mb-6">{name}</h3>
+                <ul className="space-y-3.5 flex-1 mb-8">
+                  {items.map((item, j) => (
+                    <li key={j} className="flex items-start gap-3 text-sm text-muted-foreground">
+                      <span className="mt-0.5 flex items-center justify-center w-5 h-5 rounded-full bg-primary/15 ring-1 ring-primary/30 shrink-0">
+                        <Check className="w-3 h-3 text-primary" />
+                      </span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+                <Link to="/contact" className="btn-primary text-center">
+                  {t('packages.cta')}
+                </Link>
               </div>
-              <h3 className="text-foreground font-display text-2xl font-semibold mb-6">{name}</h3>
-              <ul className="space-y-3 flex-1 mb-8">
-                {items.map((item, j) => (
-                  <li key={j} className="flex items-start gap-3 text-sm text-muted-foreground">
-                    <Check className="w-4 h-4 text-primary shrink-0 mt-0.5" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-              <Link to="/contact" className="btn-primary text-center">
-                {t('packages.cta')}
-              </Link>
             </motion.div>
           ))}
         </div>

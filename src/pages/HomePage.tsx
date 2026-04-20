@@ -217,13 +217,13 @@ const HomePage = () => {
                 transition={{ delay: i * 0.1, duration: 0.6, ease: 'easeOut' }}
                 className="glass-card p-8 hover-lift hover-border-glow group flex flex-col items-center text-center"
               >
-                <div className="icon-glow-wrap mb-6">
+                <div className="icon-glow-wrap-lg mb-6">
                   <img
                     src={iconImg}
                     alt={t(key)}
                     loading="lazy"
                     decoding="async"
-                    className="w-[72px] h-[72px] md:w-[88px] md:h-[88px] object-contain transition-transform duration-300 group-hover:scale-110 group-hover:-translate-y-1"
+                    className="w-[120px] h-[120px] md:w-[150px] md:h-[150px] object-contain transition-transform duration-300 group-hover:scale-110 group-hover:-translate-y-1"
                   />
                 </div>
                 <h3 className="text-foreground font-display text-xl font-semibold mb-3">{t(key)}</h3>

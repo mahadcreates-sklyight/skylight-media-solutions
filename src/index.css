@@ -152,6 +152,56 @@
     filter: drop-shadow(0 0 18px hsl(var(--primary) / 0.45));
   }
 
+  .icon-glow-wrap-lg {
+    @apply relative flex items-center justify-center rounded-2xl transition-all duration-300;
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle at center, hsl(var(--primary) / 0.20), transparent 70%);
+  }
+
+  @media (min-width: 768px) {
+    .icon-glow-wrap-lg {
+      width: 180px;
+      height: 180px;
+    }
+  }
+
+  .group:hover .icon-glow-wrap-lg {
+    background: radial-gradient(circle at center, hsl(var(--primary) / 0.34), transparent 72%);
+    filter: drop-shadow(0 0 24px hsl(var(--primary) / 0.5));
+  }
+
+  .package-card {
+    @apply relative overflow-hidden rounded-xl border border-border/50 p-8 flex flex-col transition-all duration-500;
+    background: linear-gradient(160deg, hsl(var(--card) / 0.85), hsl(var(--dark-surface-2) / 0.95));
+    backdrop-filter: blur(20px);
+  }
+
+  .package-card::before {
+    content: "";
+    @apply absolute inset-0 opacity-0 transition-opacity duration-500 pointer-events-none;
+    background: radial-gradient(circle at top, hsl(var(--primary) / 0.18), transparent 60%);
+  }
+
+  .package-card:hover {
+    @apply -translate-y-2 border-primary/40;
+    box-shadow: 0 25px 60px -20px hsl(var(--primary) / 0.35), 0 0 0 1px hsl(var(--primary) / 0.2);
+  }
+
+  .package-card:hover::before {
+    @apply opacity-100;
+  }
+
+  .package-card-featured {
+    @apply border-primary/50;
+    background: linear-gradient(160deg, hsl(var(--card) / 0.95), hsl(var(--dark-surface-3) / 0.98));
+    box-shadow: 0 20px 50px -15px hsl(var(--primary) / 0.4), inset 0 1px 0 hsl(var(--primary) / 0.25);
+  }
+
+  .package-card-featured::before {
+    @apply opacity-60;
+  }
+
   .bg-surface {
     background: hsl(var(--dark-surface));
   }
