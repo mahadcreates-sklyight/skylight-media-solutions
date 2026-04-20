@@ -9,13 +9,22 @@ import { ProjectCard, VideoPlayerModal, SectionHeader } from '@/components/Media
 import WhyChooseUs from '@/components/WhyChooseUs';
 import ProcessSection from '@/components/ProcessSection';
 import { DigitalMarketingPackages, EventPackages } from '@/components/Packages';
-import { Film, Megaphone, Smartphone, Camera, Calendar, Printer, Star, Quote } from 'lucide-react';
+import { Star, Quote } from 'lucide-react';
 import { getFeaturedPortfolio, type PortfolioItem } from '@/data/portfolio';
 
 // `tr=orig-true` serves the original MP4 from ImageKit and bypasses the
 // account's video-transformation quota (which was returning 403 errors).
 const HERO_VIDEO_URL =
   'https://ik.imagekit.io/byyg2uqjs/HOME%20PAGE%20HERO%20VIDEO/OUR%20BRAND%20VIDEO.mp4?updatedAt=1776473723260&tr=orig-true';
+
+const SERVICE_ICONS = {
+  videoProduction: 'https://ik.imagekit.io/byyg2uqjs/Service%20Icons/Video%20Production%20icon.webp?updatedAt=1776473595749',
+  digitalMarketing: 'https://ik.imagekit.io/byyg2uqjs/Service%20Icons/Digital%20Marketing%20Icon.webp?updatedAt=1776473595692',
+  socialMedia: 'https://ik.imagekit.io/byyg2uqjs/Service%20Icons/Social%20Media%20Icon.webp?updatedAt=1776473595751',
+  photography: 'https://ik.imagekit.io/byyg2uqjs/Service%20Icons/Photography%20Icon.webp?updatedAt=1776473596199',
+  eventCoverage: 'https://ik.imagekit.io/byyg2uqjs/Service%20Icons/Event%20Coverage%20Icon.webp?updatedAt=1776473595522',
+  printing: 'https://ik.imagekit.io/byyg2uqjs/Service%20Icons/Printing%20Icon.webp?updatedAt=1776473596466',
+};
 
 const featuredProductions = getFeaturedPortfolio(6);
 
