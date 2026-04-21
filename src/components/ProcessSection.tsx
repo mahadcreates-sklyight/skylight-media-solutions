@@ -21,15 +21,15 @@ const ProcessSection = () => {
           {steps.map(({ icon: Icon, title, desc }, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="relative text-center"
+              viewport={{ once: true, margin: '-50px' }}
+              transition={{ delay: i * 0.1, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              className="relative text-center group"
             >
-              <div className="relative mx-auto w-20 h-20 rounded-full bg-primary/10 border border-primary/30 flex items-center justify-center mb-5">
-                <Icon className="w-8 h-8 text-primary" />
-                <span className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-primary text-primary-foreground text-sm font-bold flex items-center justify-center">
+              <div className="relative mx-auto w-20 h-20 rounded-full bg-gradient-to-br from-primary/20 to-primary/5 border border-primary/30 flex items-center justify-center mb-5 transition-all duration-500 group-hover:scale-110 group-hover:shadow-[0_0_30px_hsl(var(--primary)/0.55)]">
+                <Icon className="w-8 h-8 text-primary transition-transform duration-500 group-hover:scale-110" />
+                <span className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-primary text-primary-foreground text-sm font-bold flex items-center justify-center shadow-[0_4px_14px_-2px_hsl(var(--primary)/0.6)]">
                   {i + 1}
                 </span>
               </div>
