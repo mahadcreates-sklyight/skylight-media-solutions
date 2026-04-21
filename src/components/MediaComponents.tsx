@@ -97,7 +97,9 @@ export const ProjectCard = ({ title, category, image, videoUrl, onClick }: Proje
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      className="group relative aspect-video overflow-hidden rounded-lg cursor-pointer bg-secondary"
+      whileHover={{ scale: 1.03, y: -4 }}
+      transition={{ type: 'spring', stiffness: 280, damping: 22 }}
+      className="group relative aspect-video overflow-hidden rounded-lg cursor-pointer bg-secondary shadow-[0_8px_30px_rgba(0,0,0,0.35)] hover:shadow-[0_25px_60px_-10px_hsl(var(--primary)/0.45)] ring-1 ring-border/40 hover:ring-primary/50"
       onMouseEnter={handleEnter}
       onMouseLeave={handleLeave}
       onClick={onClick}
@@ -125,9 +127,9 @@ export const ProjectCard = ({ title, category, image, videoUrl, onClick }: Proje
         <p className="text-primary text-xs tracking-widest uppercase mb-1">{category}</p>
         <h3 className="text-foreground font-display text-xl font-semibold">{title}</h3>
       </div>
-      <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 z-10 ${isHovered ? 'opacity-100' : 'opacity-0'}`}>
-        <div className="w-16 h-16 rounded-full bg-primary/90 flex items-center justify-center shadow-lg">
-          <Play className="w-7 h-7 text-primary-foreground ml-1" />
+      <div className={`absolute inset-0 flex items-center justify-center transition-all duration-300 z-10 ${isHovered ? 'opacity-100 scale-100' : 'opacity-0 scale-90'}`}>
+        <div className="w-16 h-16 rounded-full bg-primary/90 flex items-center justify-center shadow-[0_0_30px_hsl(var(--primary)/0.7)] ring-2 ring-primary-foreground/20 animate-pulse">
+          <Play className="w-7 h-7 text-primary-foreground ml-1" fill="currentColor" />
         </div>
       </div>
     </motion.div>

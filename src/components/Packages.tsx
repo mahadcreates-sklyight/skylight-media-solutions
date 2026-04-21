@@ -56,7 +56,7 @@ export const DigitalMarketingPackages = () => {
       <div className="container-custom relative">
         <SectionHeader title={t('packages.title')} subtitle={t('packages.subtitle')} />
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch mt-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch mt-10 pt-6">
           {plans.map((plan, i) => {
             const Icon = plan.icon;
             return (
@@ -66,10 +66,11 @@ export const DigitalMarketingPackages = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-50px' }}
                 transition={{ delay: i * 0.12, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                className={`package-card group ${plan.featured ? 'package-card-featured md:scale-[1.05] md:-mt-2' : ''}`}
+                className={`package-card group relative ${plan.featured ? 'package-card-featured md:scale-[1.05] md:-mt-2' : ''}`}
+                style={{ overflow: 'visible' }}
               >
                 {plan.featured && (
-                  <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 inline-flex items-center gap-1.5 bg-gradient-to-r from-primary via-accent to-primary text-primary-foreground text-[10px] tracking-[0.28em] uppercase px-4 py-1.5 rounded-full font-bold shadow-[0_10px_28px_-6px_hsl(var(--primary)/0.7)] z-20 ring-1 ring-primary-foreground/20">
+                  <span className="absolute -top-4 left-1/2 -translate-x-1/2 inline-flex items-center gap-1.5 bg-gradient-to-r from-primary via-accent to-primary text-primary-foreground text-[10px] tracking-[0.28em] uppercase px-4 py-1.5 rounded-full font-bold shadow-[0_10px_28px_-6px_hsl(var(--primary)/0.7)] z-30 ring-1 ring-primary-foreground/20 whitespace-nowrap">
                     <Star className="w-3 h-3 fill-current" />
                     {t('packages.popular')}
                   </span>
