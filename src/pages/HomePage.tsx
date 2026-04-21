@@ -253,10 +253,10 @@ const HomePage = () => {
       <section className="section-padding">
         <div className="container-custom">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-            <AnimatedCounter end={150} suffix="+" label={t('stats.projects')} />
-            <AnimatedCounter end={80} suffix="+" label={t('stats.clients')} />
-            <AnimatedCounter end={5} suffix="+" label={t('stats.years')} />
-            <AnimatedCounter end={10} suffix="+" label={t('stats.awards')} />
+            <AnimatedCounter end={250} suffix="+" label={t('stats.projects')} />
+            <AnimatedCounter end={150} suffix="+" label={t('stats.clients')} />
+            <AnimatedCounter end={9} suffix="+ Years" label={t('stats.years')} />
+            <AnimatedCounter end={15} suffix="+" label={t('stats.awards')} />
           </div>
         </div>
       </section>
