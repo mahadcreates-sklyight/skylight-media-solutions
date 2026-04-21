@@ -147,10 +147,10 @@ const HomePage = () => {
               </span>
               <span className="h-px w-10 bg-primary/60" />
             </motion.div>
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold leading-[1.1] mb-8 max-w-5xl mx-auto">
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-display font-bold leading-[1.05] mb-8 max-w-5xl mx-auto tracking-tight drop-shadow-[0_4px_30px_rgba(0,0,0,0.6)]">
               <span className="block text-foreground">Creative Media &amp;</span>
               <span className="block gradient-text">Advertising Solutions</span>
-              <span className="block text-foreground/90 text-3xl md:text-4xl lg:text-5xl mt-3 font-display italic font-medium">
+              <span className="block text-foreground/90 text-3xl md:text-4xl lg:text-5xl mt-4 font-display italic font-medium">
                 that elevate your brand
               </span>
             </h1>
@@ -299,18 +299,30 @@ const HomePage = () => {
 
       {/* CTA */}
       <section className="section-padding relative overflow-hidden">
-        <div className="absolute inset-0 opacity-20">
+        <div className="absolute inset-0 opacity-25">
           <img src={heroBg} alt="" className="w-full h-full object-cover" loading="lazy" />
+        </div>
+        {/* Cinematic gradient overlay */}
+        <div aria-hidden className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background/95" />
+        {/* Animated light flares */}
+        <div aria-hidden className="absolute inset-0 pointer-events-none overflow-hidden">
+          <div className="cta-flare cta-flare-a w-[420px] h-[420px] -top-32 -left-24" />
+          <div className="cta-flare cta-flare-b w-[380px] h-[380px] -bottom-32 -right-20" />
         </div>
         <div className="relative z-10 container-custom text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           >
-            <h2 className="text-3xl md:text-5xl font-display font-bold text-foreground mb-4">{t('cta.title')}</h2>
-            <p className="text-muted-foreground text-lg mb-8 max-w-xl mx-auto">{t('cta.subtitle')}</p>
-            <Link to="/contact" className="btn-primary">{t('cta.button')}</Link>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-foreground mb-5 tracking-tight">
+              {t('cta.title')}
+            </h2>
+            <p className="text-muted-foreground text-lg md:text-xl mb-10 max-w-xl mx-auto leading-relaxed">{t('cta.subtitle')}</p>
+            <Link to="/contact" className="btn-primary inline-flex items-center gap-2 animate-glow-pulse">
+              {t('cta.button')} <ArrowRight className="w-4 h-4" />
+            </Link>
           </motion.div>
         </div>
       </section>

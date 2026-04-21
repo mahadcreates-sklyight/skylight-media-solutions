@@ -22,13 +22,14 @@ const WhyChooseUs = () => {
           {items.map(({ icon: Icon, title, desc }, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.08 }}
-              className="glass-card p-7 hover-lift group"
+              viewport={{ once: true, margin: '-50px' }}
+              transition={{ delay: i * 0.08, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              whileHover={{ y: -6 }}
+              className="glass-card p-7 hover-border-glow group"
             >
-              <div className="w-12 h-12 rounded-sm bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary/20 transition-colors">
+              <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary/20 to-primary/5 ring-1 ring-primary/30 flex items-center justify-center mb-5 transition-all duration-500 group-hover:scale-110 group-hover:shadow-[0_0_24px_hsl(var(--primary)/0.5)]">
                 <Icon className="w-6 h-6 text-primary" />
               </div>
               <h3 className="text-foreground font-display text-xl font-semibold mb-2">{title}</h3>
