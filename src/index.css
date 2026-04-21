@@ -172,9 +172,13 @@
   }
 
   .package-card {
-    @apply relative overflow-hidden rounded-xl border border-border/50 p-8 flex flex-col transition-all duration-500;
+    @apply relative rounded-xl border border-border/50 p-8 flex flex-col transition-all duration-500;
     background: linear-gradient(160deg, hsl(var(--card) / 0.85), hsl(var(--dark-surface-2) / 0.95));
     backdrop-filter: blur(20px);
+  }
+
+  .package-card > * {
+    position: relative;
   }
 
   .package-card::before {
