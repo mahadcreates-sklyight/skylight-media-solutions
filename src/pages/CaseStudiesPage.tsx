@@ -34,18 +34,6 @@ const caseStudies = [
     metrics: { reach: '10K+', engagement: '850+', sales: 'Strong' },
   },
   {
-    title: 'Nonprofit Awareness Campaign — Documentary Style',
-    client: 'Nonprofit Organization',
-    problem: 'A nonprofit needed a compelling awareness video to communicate their mission, attract donors, and recruit volunteers — but had a limited budget.',
-    strategy: 'We produced a documentary-style short film featuring real stories from people the organization has helped, combined with interviews from leadership and footage of their programs in action.',
-    production: 'Two days of filming across multiple locations, interviews with beneficiaries and staff, b-roll of programs, and professional color grading for a cinematic feel.',
-    results: ['Fundraising video helped raise significant donations', 'Volunteer sign-ups increased after video launch', 'Video featured on organization website and events', 'Content shared widely across community networks'],
-    image: portfolioGrid,
-    quote: 'Skylight understood our mission and told our story in a way that moved people to action. The video was the centerpiece of our entire campaign.',
-    quoteName: 'Executive Director',
-    metrics: { donations: 'Significant', volunteers: '40+', shares: '500+' },
-  },
-  {
     title: 'Corporate Conference — Multi-Day Coverage',
     client: 'Professional Association',
     problem: 'A professional association hosting a 2-day conference needed comprehensive video coverage for post-event content, speaker highlight reels, and attendee testimonials.',
