@@ -1,12 +1,14 @@
 import { motion } from 'framer-motion';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { SectionHeader } from '@/components/MediaComponents';
-import portfolioGrid from '@/assets/portfolio-grid.jpg';
 import serviceVideo from '@/assets/service-video.jpg';
-import serviceEvent from '@/assets/service-event.jpg';
-import servicePhoto from '@/assets/service-photo.jpg';
-import heroBg from '@/assets/hero-bg.jpg';
 import { Quote, CheckCircle } from 'lucide-react';
+
+const CASE_VIDEOS = {
+  case1: 'https://ik.imagekit.io/byyg2uqjs/Portfolio/Event%20Community%20Gala%20Highlights.mp4?updatedAt=1776439146822&tr=orig-true',
+  case2: 'https://ik.imagekit.io/byyg2uqjs/Portfolio/PROMOTIONAL%20business%20grand%20opening%20promo.mp4?updatedAt=1776439130657&tr=orig-true',
+  case3: 'https://ik.imagekit.io/byyg2uqjs/Portfolio/Event%20conference%20and%20seminar%20highlights.mp4?updatedAt=1776439142998&tr=orig-true',
+};
 
 const caseStudies = [
   {
@@ -16,7 +18,7 @@ const caseStudies = [
     strategy: 'We planned a comprehensive coverage approach with multiple camera angles, dedicated photographer, and a post-event editing timeline that delivered a polished highlight film within one week.',
     production: 'Full-day event coverage with 3 camera setups, roaming photographer, interview segments with organizers and guests, and live-event audio capture.',
     results: ['Professional highlight film delivered in 7 days', 'Social media clips generated thousands of views', 'Client booked us for their next 3 events', 'Sponsors received branded recap content'],
-    image: serviceEvent,
+    video: CASE_VIDEOS.case1,
     quote: 'Skylight captured every important moment. The highlight video was shared widely and helped us attract more sponsors for next year.',
     quoteName: 'Event Organizer',
     metrics: { views: '15K+', clips: '12', turnaround: '7 days' },
@@ -28,7 +30,7 @@ const caseStudies = [
     strategy: 'We created a cinematic promotional video that highlighted the business atmosphere, products, and the owner\'s story — designed for Facebook, Instagram, and in-store display.',
     production: 'Half-day shoot with interior and exterior footage, owner interview, product close-ups, and music-driven editing for maximum engagement.',
     results: ['Video reached 10,000+ people on Facebook', 'Strong opening week foot traffic', 'Content repurposed for ongoing social media', 'Client ordered monthly content package'],
-    image: serviceVideo,
+    video: CASE_VIDEOS.case2,
     quote: 'The promotional video made our grand opening feel like a real event. People told us they came because they saw the video on Facebook.',
     quoteName: 'Business Owner',
     metrics: { reach: '10K+', engagement: '850+', sales: 'Strong' },
@@ -40,7 +42,7 @@ const caseStudies = [
     strategy: 'We deployed a two-person crew for full coverage, capturing keynote speakers, panel discussions, networking moments, and short attendee interviews for a complete content package.',
     production: 'Two full days of filming with dual camera setups for main stage, roaming coverage for breakout sessions, and on-site interviews.',
     results: ['Complete event recap video delivered', 'Individual speaker clips for social media', 'Attendee testimonial compilation', 'Organization used content for next year\'s marketing'],
-    image: heroBg,
+    video: CASE_VIDEOS.case3,
     quote: 'The team was professional and unobtrusive. They captured the energy of our conference perfectly.',
     quoteName: 'Conference Director',
     metrics: { hours: '20+', clips: '25', satisfaction: '100%' },
@@ -79,7 +81,18 @@ const CaseStudiesPage = () => {
               className="space-y-12"
             >
               <div className="relative aspect-[21/9] rounded-lg overflow-hidden">
-                <img src={study.image} alt={study.title} className="w-full h-full object-cover" loading="lazy" />
+                <video
+                  src={study.video}
+                  className="w-full h-full object-cover"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                  controls
+                />
+                {/* hero still image kept for SEO alt context */}
+                <span className="sr-only">{study.title}</span>
                 <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
                 <div className="absolute bottom-0 left-0 p-8 md:p-12">
                   <p className="text-primary text-sm tracking-widest uppercase mb-2">{study.client}</p>

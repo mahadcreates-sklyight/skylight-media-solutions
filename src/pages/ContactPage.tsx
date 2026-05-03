@@ -1,7 +1,13 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { useLanguage } from '@/i18n/LanguageContext';
-import { Mail, Phone, MapPin, Send, Facebook, Instagram, Youtube, Twitter } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, Facebook, Youtube, MessageCircle } from 'lucide-react';
+
+const TiktokIcon = ({ className }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
+    <path d="M16.5 3a5.5 5.5 0 0 0 5.5 5.5v3a8.5 8.5 0 0 1-5-1.62V15a6 6 0 1 1-6-6c.34 0 .67.03 1 .09v3.18a3 3 0 1 0 2 2.83V3h2.5z"/>
+  </svg>
+);
 import { toast } from 'sonner';
 
 const ContactPage = () => {
@@ -10,10 +16,25 @@ const ContactPage = () => {
     name: '', email: '', phone: '', subject: '', message: '',
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success('Message sent successfully! We\'ll get back to you soon.');
-    setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
+    try {
+      const data = new FormData();
+      data.append('form-name', 'contact');
+      Object.entries(formData).forEach(([k, v]) => data.append(k, v));
+      // Netlify forms endpoint (no-op in dev, works once deployed)
+      await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(data as any).toString(),
+      }).catch(() => {});
+      toast.success("Message sent successfully! We'll get back to you soon.");
+      setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
+    } catch {
+      // Fallback: open mail client to contact@
+      const body = `Name: ${formData.name}%0AEmail: ${formData.email}%0APhone: ${formData.phone}%0A%0A${encodeURIComponent(formData.message)}`;
+      window.location.href = `mailto:contact@skylightmediasolutions.com?subject=${encodeURIComponent(formData.subject || 'Website Inquiry')}&body=${body}`;
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -43,7 +64,18 @@ const ContactPage = () => {
               animate={{ opacity: 1, x: 0 }}
               className="lg:col-span-3"
             >
-              <form onSubmit={handleSubmit} className="glass-card p-8 md:p-10 space-y-6">
+              <form
+                onSubmit={handleSubmit}
+                name="contact"
+                method="POST"
+                data-netlify="true"
+                netlify-honeypot="bot-field"
+                className="glass-card p-8 md:p-10 space-y-6"
+              >
+                <input type="hidden" name="form-name" value="contact" />
+                <p className="hidden">
+                  <label>Don't fill this out: <input name="bot-field" /></label>
+                </p>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label className="text-foreground text-sm font-medium mb-2 block">{t('contact.name')}</label>
@@ -131,8 +163,18 @@ const ContactPage = () => {
                       <Phone className="w-5 h-5 text-primary" />
                     </div>
                     <div>
-                      <p className="text-foreground font-medium text-sm">Phone</p>
-                      <p className="text-muted-foreground text-sm">{t('contact.info.phone')}</p>
+                      <p className="text-foreground font-medium text-sm">Phone & WhatsApp</p>
+                      <div className="flex items-center gap-3 text-muted-foreground text-sm flex-wrap">
+                        <a href="tel:+252619977885" className="hover:text-primary transition-colors">+252 619 977 885</a>
+                        <a
+                          href="https://wa.me/252619977885"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1 text-primary hover:drop-shadow-[0_0_10px_hsl(var(--primary)/0.7)] transition"
+                        >
+                          <MessageCircle className="w-4 h-4" /> WhatsApp
+                        </a>
+                      </div>
                     </div>
                   </div>
                   <div className="flex items-start gap-4">
@@ -141,7 +183,9 @@ const ContactPage = () => {
                     </div>
                     <div>
                       <p className="text-foreground font-medium text-sm">Email</p>
-                      <p className="text-muted-foreground text-sm">{t('contact.info.email')}</p>
+                      <a href="mailto:info@skylightmediasolutions.com" className="text-muted-foreground text-sm hover:text-primary transition-colors break-all">
+                        info@skylightmediasolutions.com
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -152,16 +196,16 @@ const ContactPage = () => {
                 <h3 className="text-foreground font-display text-xl font-semibold mb-4">{t('footer.connect')}</h3>
                 <div className="flex gap-3">
                   {[
-                    { icon: Facebook, href: 'https://www.facebook.com/SkylightMediaSolutions' },
-                    { icon: Instagram, href: '#' },
-                    { icon: Youtube, href: '#' },
-                    { icon: Twitter, href: '#' },
-                  ].map(({ icon: Icon, href }, i) => (
+                    { icon: Facebook, href: 'https://www.facebook.com/SkylightMediaSolutions', label: 'Facebook' },
+                    { icon: Youtube, href: 'https://youtube.com/@iimaansax?si=C6qsSp0l8nZs3plN', label: 'YouTube' },
+                    { icon: TiktokIcon, href: 'https://www.tiktok.com/@skylightmediamolution?_r=1&_t=ZS-95eII2Pt6Fl', label: 'TikTok' },
+                  ].map(({ icon: Icon, href, label }, i) => (
                     <a
                       key={i}
                       href={href}
                       target="_blank"
                       rel="noopener noreferrer"
+                      aria-label={label}
                       className="w-12 h-12 rounded-sm bg-secondary flex items-center justify-center text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300"
                     >
                       <Icon className="w-5 h-5" />

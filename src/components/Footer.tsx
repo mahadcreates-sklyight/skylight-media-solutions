@@ -1,6 +1,13 @@
 import { Link } from 'react-router-dom';
 import { useLanguage } from '@/i18n/LanguageContext';
-import { Facebook, Instagram, Youtube, Twitter, Mail, Phone, MapPin } from 'lucide-react';
+import { Facebook, Youtube, Mail, Phone, MapPin, MessageCircle } from 'lucide-react';
+
+// Inline TikTok icon (lucide doesn't ship one)
+const TiktokIcon = ({ className }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
+    <path d="M16.5 3a5.5 5.5 0 0 0 5.5 5.5v3a8.5 8.5 0 0 1-5-1.62V15a6 6 0 1 1-6-6c.34 0 .67.03 1 .09v3.18a3 3 0 1 0 2 2.83V3h2.5z"/>
+  </svg>
+);
 import { useState } from 'react';
 import skylightLogo from '@/assets/skylight-logo.jpg';
 import skylightWordmark from '@/assets/skylight-wordmark.png';
@@ -53,16 +60,16 @@ const Footer = () => {
             </p>
             <div className="flex gap-2.5">
               {[
-                { icon: Facebook, href: 'https://www.facebook.com/SkylightMediaSolutions' },
-                { icon: Instagram, href: '#' },
-                { icon: Youtube, href: '#' },
-                { icon: Twitter, href: '#' },
-              ].map(({ icon: Icon, href }, i) => (
+                { icon: Facebook, href: 'https://www.facebook.com/SkylightMediaSolutions', label: 'Facebook' },
+                { icon: Youtube, href: 'https://youtube.com/@iimaansax?si=C6qsSp0l8nZs3plN', label: 'YouTube' },
+                { icon: TiktokIcon, href: 'https://www.tiktok.com/@skylightmediamolution?_r=1&_t=ZS-95eII2Pt6Fl', label: 'TikTok' },
+              ].map(({ icon: Icon, href, label }, i) => (
                 <a
                   key={i}
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label={label}
                   className="w-9 h-9 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center text-primary hover:bg-primary hover:text-primary-foreground hover:border-primary hover:shadow-[0_0_18px_hsl(var(--primary)/0.5)] transition-all duration-300"
                 >
                   <Icon className="w-4 h-4" />
@@ -160,13 +167,26 @@ const Footer = () => {
                 <span className="w-7 h-7 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0">
                   <Phone className="w-3.5 h-3.5 text-primary" />
                 </span>
-                <span>{t('contact.info.phone')}</span>
+                <div className="flex items-center gap-2 flex-wrap">
+                  <a href="tel:+252619977885" className="hover:text-primary transition-colors">+252 619 977 885</a>
+                  <span className="opacity-40">·</span>
+                  <a
+                    href="https://wa.me/252619977885"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-primary hover:drop-shadow-[0_0_10px_hsl(var(--primary)/0.7)] transition"
+                  >
+                    <MessageCircle className="w-3.5 h-3.5" /> WhatsApp
+                  </a>
+                </div>
               </div>
               <div className="flex items-center gap-3 text-muted-foreground text-sm">
                 <span className="w-7 h-7 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0">
                   <Mail className="w-3.5 h-3.5 text-primary" />
                 </span>
-                <span>{t('contact.info.email')}</span>
+                <a href="mailto:info@skylightmediasolutions.com" className="hover:text-primary transition-colors break-all">
+                  info@skylightmediasolutions.com
+                </a>
               </div>
             </div>
           </div>

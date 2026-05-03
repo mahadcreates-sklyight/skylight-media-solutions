@@ -154,8 +154,8 @@ export const translations: Record<Language, Record<string, string>> = {
     'contact.send': 'Send Message',
     'contact.info.title': 'Contact Information',
     'contact.info.address': 'Howlwadaag Street, in front of Zeytuun Plaza Hotel',
-    'contact.info.phone': '+252 658640 · +252 619977885 · +252 616922424',
-    'contact.info.email': 'skylightph1@gmail.com',
+    'contact.info.phone': '+252 619977885',
+    'contact.info.email': 'info@skylightmediasolutions.com',
 
     // Footer
     'footer.description': 'Professional media production, digital marketing, and printing company helping brands communicate with impact.',
@@ -303,8 +303,8 @@ export const translations: Record<Language, Record<string, string>> = {
     'contact.send': 'Dir Fariinta',
     'contact.info.title': 'Macluumaadka Xiriirka',
     'contact.info.address': 'Waddada Howlwadaag, Hortiisa Zeytuun Plaza Hotel',
-    'contact.info.phone': '+252 658640 · +252 619977885 · +252 616922424',
-    'contact.info.email': 'skylightph1@gmail.com',
+    'contact.info.phone': '+252 619977885',
+    'contact.info.email': 'info@skylightmediasolutions.com',
 
     'footer.description': 'Shirkad xirfadeed oo soo saarista warbaahinta, suuq-geynta dijitalka, iyo daabacaadda — caawisa sumadaha in ay si saamayn leh ula xiriiraan.',
     'footer.quickLinks': 'Xiriiriyeyaal Degdeg ah',
@@ -451,8 +451,8 @@ export const translations: Record<Language, Record<string, string>> = {
     'contact.send': 'إرسال الرسالة',
     'contact.info.title': 'معلومات الاتصال',
     'contact.info.address': 'شارع هولوداج، أمام فندق زيتون بلازا',
-    'contact.info.phone': '+252 658640 · +252 619977885 · +252 616922424',
-    'contact.info.email': 'skylightph1@gmail.com',
+    'contact.info.phone': '+252 619977885',
+    'contact.info.email': 'info@skylightmediasolutions.com',
 
     'footer.description': 'شركة إنتاج إعلامي وتسويق رقمي وطباعة احترافية تساعد العلامات التجارية على التواصل بتأثير.',
     'footer.quickLinks': 'روابط سريعة',
