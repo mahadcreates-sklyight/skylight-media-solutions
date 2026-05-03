@@ -6,6 +6,7 @@ import { DigitalMarketingPackages, EventPackages } from '@/components/Packages';
 import {
   Film, Megaphone, Smartphone, Camera, Calendar, Printer, ArrowRight,
   CreditCard, Award, FileText, Mail, Stamp, BookOpen, Shirt, Coffee, ShoppingBag,
+  Signpost, Type, Megaphone as BillboardIcon, MailOpen, IdCard, GraduationCap, Tag,
 } from 'lucide-react';
 import serviceVideo from '@/assets/service-video.jpg';
 
@@ -31,22 +32,22 @@ const ServicesPage = () => {
   ];
 
   const printingItems = [
-    { icon: Printer, label: 'Signboards' },
-    { icon: Printer, label: '3D Letters' },
-    { icon: Printer, label: 'Billboards' },
+    { icon: Signpost, label: 'Signboards' },
+    { icon: Type, label: '3D Letters' },
+    { icon: BillboardIcon, label: 'Billboards' },
     { icon: FileText, label: 'Brochures' },
-    { icon: Mail, label: 'Invitations' },
+    { icon: MailOpen, label: 'Invitations' },
     { icon: CreditCard, label: 'Business Cards' },
     { icon: Award, label: 'Certificates' },
-    { icon: CreditCard, label: 'ID Cards' },
+    { icon: IdCard, label: 'ID Cards' },
     { icon: Stamp, label: 'Stamps' },
     { icon: Calendar, label: 'Calendars' },
     { icon: BookOpen, label: 'Notebooks' },
-    { icon: BookOpen, label: 'Graduation Books' },
+    { icon: GraduationCap, label: 'Graduation Books' },
     { icon: Shirt, label: 'T-Shirts' },
     { icon: Coffee, label: 'Cups' },
     { icon: ShoppingBag, label: 'Shopping Bags' },
-    { icon: FileText, label: 'Desk Name Plates' },
+    { icon: Tag, label: 'Desk Name Plates' },
   ];
 
   return (
@@ -124,12 +125,18 @@ const ServicesPage = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.04 }}
-                className="glass-card p-5 flex flex-col items-center text-center hover-lift group"
+                className="relative glass-card p-5 flex flex-col items-center text-center hover-lift group overflow-hidden"
               >
-                <div className="w-11 h-11 rounded-sm bg-primary/10 flex items-center justify-center mb-3 group-hover:bg-primary/20 transition-colors">
-                  <Icon className="w-5 h-5 text-primary" />
+                {/* Subtle transparent visual background */}
+                <Icon
+                  aria-hidden
+                  className="pointer-events-none absolute -right-4 -bottom-4 w-24 h-24 text-primary/5 group-hover:text-primary/10 transition-colors duration-500"
+                  strokeWidth={1}
+                />
+                <div className="relative w-12 h-12 rounded-full bg-gradient-to-br from-primary/20 to-primary/5 border border-primary/30 flex items-center justify-center mb-3 shadow-[0_0_18px_hsl(var(--primary)/0.25)] group-hover:shadow-[0_0_28px_hsl(var(--primary)/0.55)] group-hover:scale-110 transition-all duration-300">
+                  <Icon className="w-5 h-5 text-primary drop-shadow-[0_0_6px_hsl(var(--primary)/0.7)]" />
                 </div>
-                <p className="text-foreground text-sm font-medium">{label}</p>
+                <p className="relative text-foreground text-sm font-medium">{label}</p>
               </motion.div>
             ))}
           </div>
