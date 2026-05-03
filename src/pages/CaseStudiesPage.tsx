@@ -81,7 +81,18 @@ const CaseStudiesPage = () => {
               className="space-y-12"
             >
               <div className="relative aspect-[21/9] rounded-lg overflow-hidden">
-                <img src={study.image} alt={study.title} className="w-full h-full object-cover" loading="lazy" />
+                <video
+                  src={study.video}
+                  className="w-full h-full object-cover"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                  controls
+                />
+                {/* hero still image kept for SEO alt context */}
+                <span className="sr-only">{study.title}</span>
                 <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
                 <div className="absolute bottom-0 left-0 p-8 md:p-12">
                   <p className="text-primary text-sm tracking-widest uppercase mb-2">{study.client}</p>
