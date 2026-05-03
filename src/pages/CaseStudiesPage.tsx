@@ -1,12 +1,14 @@
 import { motion } from 'framer-motion';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { SectionHeader } from '@/components/MediaComponents';
-import portfolioGrid from '@/assets/portfolio-grid.jpg';
 import serviceVideo from '@/assets/service-video.jpg';
-import serviceEvent from '@/assets/service-event.jpg';
-import servicePhoto from '@/assets/service-photo.jpg';
-import heroBg from '@/assets/hero-bg.jpg';
 import { Quote, CheckCircle } from 'lucide-react';
+
+const CASE_VIDEOS = {
+  case1: 'https://ik.imagekit.io/byyg2uqjs/Portfolio/Event%20Community%20Gala%20Highlights.mp4?updatedAt=1776439146822&tr=orig-true',
+  case2: 'https://ik.imagekit.io/byyg2uqjs/Portfolio/PROMOTIONAL%20business%20grand%20opening%20promo.mp4?updatedAt=1776439130657&tr=orig-true',
+  case3: 'https://ik.imagekit.io/byyg2uqjs/Portfolio/Event%20conference%20and%20seminar%20highlights.mp4?updatedAt=1776439142998&tr=orig-true',
+};
 
 const caseStudies = [
   {
