@@ -15,25 +15,44 @@ const ContactPage = () => {
   const [formData, setFormData] = useState({
     name: '', email: '', phone: '', subject: '', message: '',
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [statusMessage, setStatusMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
+    setStatusMessage(null);
     try {
-      const data = new FormData();
-      data.append('form-name', 'contact');
-      Object.entries(formData).forEach(([k, v]) => data.append(k, v));
-      // Netlify forms endpoint (no-op in dev, works once deployed)
-      await fetch('/', {
+      const res = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(data as any).toString(),
-      }).catch(() => {});
-      toast.success("Message sent successfully! We'll get back to you soon.");
-      setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          access_key: '13e3c72e-1d35-43c8-9546-9445ca1b7b76',
+          subject: 'New Message - Skylight Media Solutions Website',
+          from_name: 'Skylight Media Solutions',
+          replyto: formData.email,
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+        }),
+      });
+      const result = await res.json();
+      if (result.success === true) {
+        setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
+        setStatusMessage({
+          type: 'success',
+          text: 'Thank you! Your message has been sent.\nWe will get back to you within 24 hours.',
+        });
+      } else {
+        throw new Error('Submission failed');
+      }
     } catch {
-      // Fallback: open mail client to contact@
-      const body = `Name: ${formData.name}%0AEmail: ${formData.email}%0APhone: ${formData.phone}%0A%0A${encodeURIComponent(formData.message)}`;
-      window.location.href = `mailto:contact@skylightmediasolutions.com?subject=${encodeURIComponent(formData.subject || 'Website Inquiry')}&body=${body}`;
+      setStatusMessage({
+        type: 'error',
+        text: 'Something went wrong. Please email us directly at\ncontact@skylightmediasolutions.com',
+      });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
