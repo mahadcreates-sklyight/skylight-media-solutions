@@ -146,9 +146,22 @@ const ContactPage = () => {
                     className="w-full bg-secondary border border-border rounded-sm px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors resize-none"
                   />
                 </div>
-                <button type="submit" className="btn-primary inline-flex items-center gap-2">
-                  <Send className="w-4 h-4" /> {t('contact.send')}
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="btn-primary inline-flex items-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
+                >
+                  <Send className="w-4 h-4" /> {isSubmitting ? 'Sending...' : t('contact.send')}
                 </button>
+                {statusMessage && (
+                  <p
+                    className={`text-sm whitespace-pre-line ${
+                      statusMessage.type === 'success' ? 'text-green-500' : 'text-red-500'
+                    }`}
+                  >
+                    {statusMessage.text}
+                  </p>
+                )}
               </form>
             </motion.div>
 
