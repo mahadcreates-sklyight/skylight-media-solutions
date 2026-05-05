@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion';
-import { useState } from 'react';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { Mail, Phone, MapPin, Send, Facebook, Youtube, MessageCircle } from 'lucide-react';
 
@@ -8,57 +7,9 @@ const TiktokIcon = ({ className }: { className?: string }) => (
     <path d="M16.5 3a5.5 5.5 0 0 0 5.5 5.5v3a8.5 8.5 0 0 1-5-1.62V15a6 6 0 1 1-6-6c.34 0 .67.03 1 .09v3.18a3 3 0 1 0 2 2.83V3h2.5z"/>
   </svg>
 );
-import { toast } from 'sonner';
 
 const ContactPage = () => {
   const { t } = useLanguage();
-  const [formData, setFormData] = useState({
-    name: '', email: '', phone: '', subject: '', message: '',
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [statusMessage, setStatusMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setStatusMessage(null);
-    try {
-      const res = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          access_key: '13e3c72e-1d35-43c8-9546-9445ca1b7b76',
-          subject: 'New Message - Skylight Media Solutions Website',
-          from_name: 'Skylight Media Solutions',
-          replyto: formData.email,
-          name: formData.name,
-          email: formData.email,
-          message: formData.message,
-        }),
-      });
-      const result = await res.json();
-      if (result.success === true) {
-        setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
-        setStatusMessage({
-          type: 'success',
-          text: 'Thank you! Your message has been sent.\nWe will get back to you within 24 hours.',
-        });
-      } else {
-        throw new Error('Submission failed');
-      }
-    } catch {
-      setStatusMessage({
-        type: 'error',
-        text: 'Something went wrong. Please email us directly at\ncontact@skylightmediasolutions.com',
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
-  };
 
   return (
     <>
