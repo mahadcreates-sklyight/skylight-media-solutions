@@ -35,18 +35,20 @@ const ContactPage = () => {
               className="lg:col-span-3"
             >
               <form
-                onSubmit={handleSubmit}
+                action="https://api.web3forms.com/submit"
                 method="POST"
                 className="glass-card p-8 md:p-10 space-y-6"
               >
+                <input type="hidden" name="access_key" value="13e3c72e-1d35-43c8-9546-9445ca1b7b76" />
+                <input type="hidden" name="redirect" value="https://skylightmediasolutions.com/thank-you" />
+                <input type="hidden" name="subject" value="New Message - Skylight Media Solutions Website" />
+                <input type="hidden" name="from_name" value="Skylight Media Solutions" />
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label className="text-foreground text-sm font-medium mb-2 block">{t('contact.name')}</label>
                     <input
                       type="text"
                       name="name"
-                      value={formData.name}
-                      onChange={handleChange}
                       required
                       className="w-full bg-secondary border border-border rounded-sm px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
                     />
@@ -56,8 +58,6 @@ const ContactPage = () => {
                     <input
                       type="email"
                       name="email"
-                      value={formData.email}
-                      onChange={handleChange}
                       required
                       className="w-full bg-secondary border border-border rounded-sm px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
                     />
@@ -69,8 +69,6 @@ const ContactPage = () => {
                     <input
                       type="tel"
                       name="phone"
-                      value={formData.phone}
-                      onChange={handleChange}
                       className="w-full bg-secondary border border-border rounded-sm px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
                     />
                   </div>
@@ -78,9 +76,7 @@ const ContactPage = () => {
                     <label className="text-foreground text-sm font-medium mb-2 block">{t('contact.subject')}</label>
                     <input
                       type="text"
-                      name="subject"
-                      value={formData.subject}
-                      onChange={handleChange}
+                      name="user_subject"
                       required
                       className="w-full bg-secondary border border-border rounded-sm px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
                     />
@@ -90,8 +86,6 @@ const ContactPage = () => {
                   <label className="text-foreground text-sm font-medium mb-2 block">{t('contact.message')}</label>
                   <textarea
                     name="message"
-                    value={formData.message}
-                    onChange={handleChange}
                     required
                     rows={6}
                     className="w-full bg-secondary border border-border rounded-sm px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors resize-none"
@@ -99,20 +93,10 @@ const ContactPage = () => {
                 </div>
                 <button
                   type="submit"
-                  disabled={isSubmitting}
-                  className="btn-primary inline-flex items-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
+                  className="btn-primary inline-flex items-center gap-2"
                 >
-                  <Send className="w-4 h-4" /> {isSubmitting ? 'Sending...' : t('contact.send')}
+                  <Send className="w-4 h-4" /> {t('contact.send')}
                 </button>
-                {statusMessage && (
-                  <p
-                    className={`text-sm whitespace-pre-line ${
-                      statusMessage.type === 'success' ? 'text-green-500' : 'text-red-500'
-                    }`}
-                  >
-                    {statusMessage.text}
-                  </p>
-                )}
               </form>
             </motion.div>
 
