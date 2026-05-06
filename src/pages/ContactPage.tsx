@@ -39,7 +39,7 @@ const ContactPage = () => {
                 method="POST"
                 className="glass-card p-8 md:p-10 space-y-6"
               >
-                <input type="hidden" name="access_key" value="13e3c72e-1d35-43c8-9546-9445ca1b7b76" />
+                <input type="hidden" name="access_key" value="88900911-a741-4210-bb75-63ebd706bdd5" />
                 <input type="hidden" name="redirect" value="https://skylightmediasolutions.com/thank-you" />
                 <input type="hidden" name="subject" value="New Message - Skylight Media Solutions Website" />
                 <input type="hidden" name="from_name" value="Skylight Media Solutions" />
