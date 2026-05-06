@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { useLanguage } from '@/i18n/LanguageContext';
-import { Mail, Phone, MapPin, Send, Facebook, Youtube, MessageCircle } from 'lucide-react';
+import { Mail, Phone, MapPin, Facebook, Youtube, MessageCircle } from 'lucide-react';
 
 const TiktokIcon = ({ className }: { className?: string }) => (
   <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
@@ -73,7 +73,7 @@ const ContactPage = () => {
                   type="submit"
                   className="btn-primary inline-flex items-center gap-2"
                 >
-                  <Send className="w-4 h-4" /> Send Message
+                  Send Message
                 </button>
               </form>
             </motion.div>
