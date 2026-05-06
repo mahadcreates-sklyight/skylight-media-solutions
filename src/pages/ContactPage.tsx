@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion';
-import { useState } from 'react';
-import { toast } from 'sonner';
+import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useLanguage } from '@/i18n/LanguageContext';
-import { Mail, Phone, MapPin, Facebook, Youtube, MessageCircle } from 'lucide-react';
+import { Mail, Phone, MapPin, Facebook, Youtube, MessageCircle, CheckCircle2 } from 'lucide-react';
 
 const TiktokIcon = ({ className }: { className?: string }) => (
   <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
@@ -12,45 +12,15 @@ const TiktokIcon = ({ className }: { className?: string }) => (
 
 const ContactPage = () => {
   const { t } = useLanguage();
-  const [formData, setFormData] = useState({ name: "", email: "", phone: "", subject: "", message: "" });
-  const [submitting, setSubmitting] = useState(false);
+  const location = useLocation();
+  const [submitted, setSubmitted] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setSubmitting(true);
-    try {
-      const response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json"
-        },
-        body: JSON.stringify({
-          access_key: "88900911-a741-4210-bb75-63ebd706bdd5",
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone,
-          subject: formData.subject,
-          message: formData.message
-        })
-      });
-      const result = await response.json();
-      if (result.success) {
-        toast.success("Message sent successfully!");
-        setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
-      } else {
-        toast.error("Failed to send: " + result.message);
-      }
-    } catch (err) {
-      toast.error("Failed to send. Please try again.");
-    } finally {
-      setSubmitting(false);
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    if (params.get('submitted') === 'true') {
+      setSubmitted(true);
     }
-  };
+  }, [location.search]);
 
   return (
     <>
