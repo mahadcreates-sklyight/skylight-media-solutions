@@ -1,4 +1,6 @@
 import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { toast } from 'sonner';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { Mail, Phone, MapPin, Facebook, Youtube, MessageCircle } from 'lucide-react';
 
@@ -10,6 +12,45 @@ const TiktokIcon = ({ className }: { className?: string }) => (
 
 const ContactPage = () => {
   const { t } = useLanguage();
+  const [formData, setFormData] = useState({ name: "", email: "", phone: "", subject: "", message: "" });
+  const [submitting, setSubmitting] = useState(false);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setSubmitting(true);
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json"
+        },
+        body: JSON.stringify({
+          access_key: "88900911-a741-4210-bb75-63ebd706bdd5",
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          subject: formData.subject,
+          message: formData.message
+        })
+      });
+      const result = await response.json();
+      if (result.success) {
+        toast.success("Message sent successfully!");
+        setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
+      } else {
+        toast.error("Failed to send: " + result.message);
+      }
+    } catch (err) {
+      toast.error("Failed to send. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   return (
     <>
@@ -35,17 +76,17 @@ const ContactPage = () => {
               className="lg:col-span-3"
             >
               <form
-                action="https://api.web3forms.com/submit"
-                method="POST"
+                onSubmit={onSubmit}
                 className="glass-card p-8 md:p-10 space-y-6"
               >
-                <input type="hidden" name="access_key" value="88900911-a741-4210-bb75-63ebd706bdd5" />
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label className="text-foreground text-sm font-medium mb-2 block">{t('contact.name')}</label>
                     <input
                       type="text"
                       name="name"
+                      value={formData.name}
+                      onChange={handleChange}
                       required
                       className="w-full bg-secondary border border-border rounded-sm px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
                     />
@@ -55,7 +96,29 @@ const ContactPage = () => {
                     <input
                       type="email"
                       name="email"
+                      value={formData.email}
+                      onChange={handleChange}
                       required
+                      className="w-full bg-secondary border border-border rounded-sm px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-foreground text-sm font-medium mb-2 block">Phone</label>
+                    <input
+                      type="tel"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      className="w-full bg-secondary border border-border rounded-sm px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-foreground text-sm font-medium mb-2 block">Subject</label>
+                    <input
+                      type="text"
+                      name="subject"
+                      value={formData.subject}
+                      onChange={handleChange}
                       className="w-full bg-secondary border border-border rounded-sm px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
                     />
                   </div>
@@ -64,6 +127,8 @@ const ContactPage = () => {
                   <label className="text-foreground text-sm font-medium mb-2 block">{t('contact.message')}</label>
                   <textarea
                     name="message"
+                    value={formData.message}
+                    onChange={handleChange}
                     required
                     rows={6}
                     className="w-full bg-secondary border border-border rounded-sm px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors resize-none"
@@ -71,9 +136,10 @@ const ContactPage = () => {
                 </div>
                 <button
                   type="submit"
-                  className="btn-primary inline-flex items-center gap-2"
+                  disabled={submitting}
+                  className="btn-primary inline-flex items-center gap-2 disabled:opacity-60"
                 >
-                  Send Message
+                  {submitting ? "Sending..." : "Send Message"}
                 </button>
               </form>
             </motion.div>
