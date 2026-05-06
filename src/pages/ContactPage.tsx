@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { useLanguage } from '@/i18n/LanguageContext';
-import { Mail, Phone, MapPin, Send, Facebook, Youtube, MessageCircle } from 'lucide-react';
+import { Mail, Phone, MapPin, Facebook, Youtube, MessageCircle } from 'lucide-react';
 
 const TiktokIcon = ({ className }: { className?: string }) => (
   <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
@@ -40,9 +40,6 @@ const ContactPage = () => {
                 className="glass-card p-8 md:p-10 space-y-6"
               >
                 <input type="hidden" name="access_key" value="88900911-a741-4210-bb75-63ebd706bdd5" />
-                <input type="hidden" name="redirect" value="https://skylightmediasolutions.com/thank-you" />
-                <input type="hidden" name="subject" value="New Message - Skylight Media Solutions Website" />
-                <input type="hidden" name="from_name" value="Skylight Media Solutions" />
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label className="text-foreground text-sm font-medium mb-2 block">{t('contact.name')}</label>
@@ -63,25 +60,6 @@ const ContactPage = () => {
                     />
                   </div>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="text-foreground text-sm font-medium mb-2 block">{t('contact.phone')}</label>
-                    <input
-                      type="tel"
-                      name="phone"
-                      className="w-full bg-secondary border border-border rounded-sm px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
-                    />
-                  </div>
-                  <div>
-                    <label className="text-foreground text-sm font-medium mb-2 block">{t('contact.subject')}</label>
-                    <input
-                      type="text"
-                      name="user_subject"
-                      required
-                      className="w-full bg-secondary border border-border rounded-sm px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
-                    />
-                  </div>
-                </div>
                 <div>
                   <label className="text-foreground text-sm font-medium mb-2 block">{t('contact.message')}</label>
                   <textarea
@@ -95,7 +73,7 @@ const ContactPage = () => {
                   type="submit"
                   className="btn-primary inline-flex items-center gap-2"
                 >
-                  <Send className="w-4 h-4" /> {t('contact.send')}
+                  Send Message
                 </button>
               </form>
             </motion.div>
