@@ -45,18 +45,29 @@ const ContactPage = () => {
               animate={{ opacity: 1, x: 0 }}
               className="lg:col-span-3"
             >
+              {submitted ? (
+                <div className="glass-card p-8 md:p-10 text-center space-y-4">
+                  <CheckCircle2 className="w-16 h-16 text-green-500 mx-auto" strokeWidth={1.5} />
+                  <h2 className="text-2xl font-display font-semibold text-foreground">
+                    Thank you for your message!
+                  </h2>
+                  <p className="text-muted-foreground">
+                    We've received your message and will get back to you within 24 hours.
+                  </p>
+                </div>
+              ) : (
               <form
-                onSubmit={onSubmit}
+                action="https://formspree.io/f/xpqblrdv"
+                method="POST"
                 className="glass-card p-8 md:p-10 space-y-6"
               >
+                <input type="hidden" name="_next" value={typeof window !== 'undefined' ? `${window.location.origin}/contact?submitted=true` : ''} />
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label className="text-foreground text-sm font-medium mb-2 block">{t('contact.name')}</label>
                     <input
                       type="text"
                       name="name"
-                      value={formData.name}
-                      onChange={handleChange}
                       required
                       className="w-full bg-secondary border border-border rounded-sm px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
                     />
@@ -66,8 +77,6 @@ const ContactPage = () => {
                     <input
                       type="email"
                       name="email"
-                      value={formData.email}
-                      onChange={handleChange}
                       required
                       className="w-full bg-secondary border border-border rounded-sm px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
                     />
@@ -77,8 +86,6 @@ const ContactPage = () => {
                     <input
                       type="tel"
                       name="phone"
-                      value={formData.phone}
-                      onChange={handleChange}
                       className="w-full bg-secondary border border-border rounded-sm px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
                     />
                   </div>
@@ -87,8 +94,6 @@ const ContactPage = () => {
                     <input
                       type="text"
                       name="subject"
-                      value={formData.subject}
-                      onChange={handleChange}
                       className="w-full bg-secondary border border-border rounded-sm px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
                     />
                   </div>
@@ -97,8 +102,6 @@ const ContactPage = () => {
                   <label className="text-foreground text-sm font-medium mb-2 block">{t('contact.message')}</label>
                   <textarea
                     name="message"
-                    value={formData.message}
-                    onChange={handleChange}
                     required
                     rows={6}
                     className="w-full bg-secondary border border-border rounded-sm px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors resize-none"
@@ -106,12 +109,12 @@ const ContactPage = () => {
                 </div>
                 <button
                   type="submit"
-                  disabled={submitting}
-                  className="btn-primary inline-flex items-center gap-2 disabled:opacity-60"
+                  className="btn-primary inline-flex items-center gap-2"
                 >
-                  {submitting ? "Sending..." : "Send Message"}
+                  Send Message
                 </button>
               </form>
+              )}
             </motion.div>
 
             {/* Contact Info */}
