@@ -1,8 +1,6 @@
 import { motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import { useLanguage } from '@/i18n/LanguageContext';
-import { Mail, Phone, MapPin, Facebook, Youtube, MessageCircle, CheckCircle2 } from 'lucide-react';
+import { Mail, Phone, MapPin, Facebook, Youtube, MessageCircle } from 'lucide-react';
 
 const TiktokIcon = ({ className }: { className?: string }) => (
   <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
