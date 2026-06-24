@@ -1,15 +1,95 @@
+import { useState, FormEvent, ChangeEvent } from 'react';
 import { motion } from 'framer-motion';
 import { useLanguage } from '@/i18n/LanguageContext';
-import { Mail, Phone, MapPin, Facebook, Youtube, MessageCircle } from 'lucide-react';
+import { Mail, Phone, MapPin, Facebook, Youtube, MessageCircle, Loader2 } from 'lucide-react';
+import { toast } from 'sonner';
+import { supabase } from '@/integrations/supabase/client';
 
 const TiktokIcon = ({ className }: { className?: string }) => (
   <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
-    <path d="M16.5 3a5.5 5.5 0 0 0 5.5 5.5v3a8.5 8.5 0 0 1-5-1.62V15a6 6 0 1 1-6-6c.34 0 .67.03 1 .09v3.18a3 3 0 1 0 2 2.83V3h2.5z"/>
+    <path d="M16.5 3a5.5 5.5 0 0 0 5.5 5.5v3a8.5 8.5 0 0 1-5-1.62V15a6 6 0 1 1-6-6c.34 0 .67.03 1 .09v3.18a3 3 0 1 0 2 2.83V3h2.5z" />
   </svg>
 );
 
+type FormState = {
+  name: string;
+  email: string;
+  phone: string;
+  company: string;
+  service: string;
+  subject: string;
+  message: string;
+};
+
+const initialState: FormState = {
+  name: '',
+  email: '',
+  phone: '',
+  company: '',
+  service: '',
+  subject: '',
+  message: '',
+};
+
+// Submits to /api/contact (Cloudflare Pages Function) when available,
+// otherwise falls back to the Lovable Cloud edge function so the form
+// works on both hosting targets.
+async function submitContact(payload: FormState): Promise<{ success: boolean; error?: string }> {
+  // Try Cloudflare Pages Function first
+  try {
+    const res = await fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    const contentType = res.headers.get('content-type') || '';
+    if (contentType.includes('application/json')) {
+      const data = await res.json();
+      if (res.ok && data?.success) return { success: true };
+      if (res.status !== 404) {
+        return { success: false, error: data?.error || 'Failed to send message' };
+      }
+    }
+    // Non-JSON or 404 → fall through to Lovable edge function
+  } catch {
+    // Network error → fall through
+  }
+
+  // Lovable Cloud edge function fallback
+  const { data, error } = await supabase.functions.invoke('send-contact-email', {
+    body: payload,
+  });
+  if (error) return { success: false, error: error.message };
+  if (data?.success) return { success: true };
+  return { success: false, error: data?.error || 'Failed to send message' };
+}
+
 const ContactPage = () => {
   const { t } = useLanguage();
+  const [formData, setFormData] = useState<FormState>(initialState);
+  const [submitting, setSubmitting] = useState(false);
+  const [sent, setSent] = useState(false);
+
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (submitting) return;
+    setSubmitting(true);
+    const result = await submitContact(formData);
+    setSubmitting(false);
+    if (result.success) {
+      toast.success('Message sent! We will get back to you shortly.');
+      setFormData(initialState);
+      setSent(true);
+    } else {
+      toast.error(result.error || 'Something went wrong. Please try again.');
+    }
+  };
 
   return (
     <>
@@ -34,7 +114,7 @@ const ContactPage = () => {
               animate={{ opacity: 1, x: 0 }}
               className="lg:col-span-3"
             >
-              <form className="glass-card p-8 md:p-10 space-y-6">
+              <form onSubmit={handleSubmit} className="glass-card p-8 md:p-10 space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label className="text-foreground text-sm font-medium mb-2 block">{t('contact.name')}</label>
@@ -42,6 +122,8 @@ const ContactPage = () => {
                       type="text"
                       name="name"
                       required
+                      value={formData.name}
+                      onChange={handleChange}
                       className="w-full bg-secondary border border-border rounded-sm px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
                     />
                   </div>
@@ -51,6 +133,8 @@ const ContactPage = () => {
                       type="email"
                       name="email"
                       required
+                      value={formData.email}
+                      onChange={handleChange}
                       className="w-full bg-secondary border border-border rounded-sm px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
                     />
                   </div>
@@ -59,6 +143,29 @@ const ContactPage = () => {
                     <input
                       type="tel"
                       name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      className="w-full bg-secondary border border-border rounded-sm px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-foreground text-sm font-medium mb-2 block">Company</label>
+                    <input
+                      type="text"
+                      name="company"
+                      value={formData.company}
+                      onChange={handleChange}
+                      className="w-full bg-secondary border border-border rounded-sm px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-foreground text-sm font-medium mb-2 block">Service</label>
+                    <input
+                      type="text"
+                      name="service"
+                      value={formData.service}
+                      onChange={handleChange}
+                      placeholder="e.g. Web Design, Branding"
                       className="w-full bg-secondary border border-border rounded-sm px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
                     />
                   </div>
@@ -67,6 +174,8 @@ const ContactPage = () => {
                     <input
                       type="text"
                       name="subject"
+                      value={formData.subject}
+                      onChange={handleChange}
                       className="w-full bg-secondary border border-border rounded-sm px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
                     />
                   </div>
@@ -77,15 +186,29 @@ const ContactPage = () => {
                     name="message"
                     required
                     rows={6}
+                    value={formData.message}
+                    onChange={handleChange}
                     className="w-full bg-secondary border border-border rounded-sm px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors resize-none"
                   />
                 </div>
                 <button
                   type="submit"
-                  className="btn-primary inline-flex items-center gap-2"
+                  disabled={submitting}
+                  className="btn-primary inline-flex items-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  Send Message
+                  {submitting ? (
+                    <>
+                      <Loader2 className="w-4 h-4 animate-spin" /> Sending...
+                    </>
+                  ) : (
+                    'Send Message'
+                  )}
                 </button>
+                {sent && !submitting && (
+                  <p className="text-sm text-primary">
+                    Thanks! Your message has been sent. We'll reply soon.
+                  </p>
+                )}
               </form>
             </motion.div>
 
