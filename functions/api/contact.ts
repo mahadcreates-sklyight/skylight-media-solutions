@@ -19,7 +19,7 @@ interface ContactPayload {
 }
 
 const TO_EMAIL = 'contact@skylightmediasolutions.com';
-const FROM_EMAIL = 'Skylight Contact <onboarding@resend.dev>';
+const FROM_EMAIL = 'Skylight Media Solutions <contact@skylightmediasolutions.com>';
 const SUBJECT = 'New Website Contact Submission';
 
 const json = (data: unknown, status = 200) =>

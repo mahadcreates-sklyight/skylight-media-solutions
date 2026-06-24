@@ -2,7 +2,7 @@ import { corsHeaders } from 'npm:@supabase/supabase-js@2/cors';
 
 const GATEWAY_URL = 'https://connector-gateway.lovable.dev/resend';
 const TO_EMAIL = 'contact@skylightmediasolutions.com';
-const FROM_EMAIL = 'Skylight Contact <onboarding@resend.dev>';
+const FROM_EMAIL = 'Skylight Media Solutions <contact@skylightmediasolutions.com>';
 
 interface ContactPayload {
   name?: string;
