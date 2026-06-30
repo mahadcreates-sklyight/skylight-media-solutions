@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { useLanguage } from '@/i18n/LanguageContext';
 import { Mail, Phone, MapPin, Facebook, Youtube, MessageCircle, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
-import { supabase } from '@/integrations/supabase/client';
+
 
 const TiktokIcon = ({ className }: { className?: string }) => (
   <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
@@ -31,37 +31,24 @@ const initialState: FormState = {
   message: '',
 };
 
-// Submits to /api/contact (Cloudflare Pages Function) when available,
-// otherwise falls back to the Lovable Cloud edge function so the form
-// works on both hosting targets.
+// Submits to the Cloudflare Pages Function at /api/contact.
 async function submitContact(payload: FormState): Promise<{ success: boolean; error?: string }> {
-  // Try Cloudflare Pages Function first
   try {
     const res = await fetch('/api/contact', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
     });
+    let data: { success?: boolean; error?: string } | null = null;
     const contentType = res.headers.get('content-type') || '';
     if (contentType.includes('application/json')) {
-      const data = await res.json();
-      if (res.ok && data?.success) return { success: true };
-      if (res.status !== 404) {
-        return { success: false, error: data?.error || 'Failed to send message' };
-      }
+      data = await res.json();
     }
-    // Non-JSON or 404 → fall through to Lovable edge function
-  } catch {
-    // Network error → fall through
+    if (res.ok && data?.success) return { success: true };
+    return { success: false, error: data?.error || `Failed to send message (HTTP ${res.status})` };
+  } catch (err) {
+    return { success: false, error: err instanceof Error ? err.message : 'Network error' };
   }
-
-  // Lovable Cloud edge function fallback
-  const { data, error } = await supabase.functions.invoke('send-contact-email', {
-    body: payload,
-  });
-  if (error) return { success: false, error: error.message };
-  if (data?.success) return { success: true };
-  return { success: false, error: data?.error || 'Failed to send message' };
 }
 
 const ContactPage = () => {
