@@ -70,7 +70,7 @@ const Footer = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
-                  className="w-9 h-9 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center text-primary hover:bg-primary hover:text-primary-foreground hover:border-primary hover:shadow-[0_0_18px_hsl(var(--primary)/0.5)] transition-all duration-300"
+                  className="w-9 h-9 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center text-primary hover:bg-primary hover:text-primary-foreground hover:border-primary hover:shadow-[0_0_20px_hsl(var(--primary)/0.6)] hover:-translate-y-0.5 hover:scale-110 transition-all duration-300 ease-out will-change-transform"
                 >
                   <Icon className="w-4 h-4" />
                 </a>
