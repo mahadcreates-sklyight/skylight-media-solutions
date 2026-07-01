@@ -1,7 +1,7 @@
 import { useState, FormEvent, ChangeEvent } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '@/i18n/LanguageContext';
-import { Mail, Phone, MapPin, Facebook, Youtube, MessageCircle, Loader2 } from 'lucide-react';
+import { Mail, Phone, MapPin, Facebook, Youtube, MessageCircle, Loader2, CheckCircle2 } from 'lucide-react';
 import { toast } from 'sonner';
 
 
