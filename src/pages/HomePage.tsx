@@ -1,7 +1,7 @@
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '@/i18n/LanguageContext';
-import { ArrowRight, Volume2, VolumeX } from 'lucide-react';
+import { ArrowRight, Volume2, VolumeX, ChevronDown } from 'lucide-react';
 import { useState, useRef, useEffect } from 'react';
 import heroBg from '@/assets/hero-bg.jpg';
 import AnimatedCounter from '@/components/AnimatedCounter';
@@ -10,6 +10,8 @@ import WhyChooseUs from '@/components/WhyChooseUs';
 import ProcessSection from '@/components/ProcessSection';
 import { DigitalMarketingPackages, EventPackages } from '@/components/Packages';
 import { Star, Quote } from 'lucide-react';
+
+const SOUND_PREF_KEY = 'skylight:hero-sound';
 import { getFeaturedPortfolio, type PortfolioItem } from '@/data/portfolio';
 
 // `tr=orig-true` serves the original MP4 from ImageKit and bypasses the
