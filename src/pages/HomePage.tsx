@@ -59,6 +59,14 @@ const HomePage = () => {
   const [heroMuted, setHeroMuted] = useState(true);
   const heroVideoRef = useRef<HTMLVideoElement | null>(null);
 
+  // Auto-advance testimonials for a modern carousel feel
+  useEffect(() => {
+    const id = setInterval(() => {
+      setCurrentTestimonial((c) => (c + 1) % testimonials.length);
+    }, 6500);
+    return () => clearInterval(id);
+  }, []);
+
   // Restore user's saved sound preference (falls back to muted if browser blocks).
   useEffect(() => {
     const v = heroVideoRef.current;
