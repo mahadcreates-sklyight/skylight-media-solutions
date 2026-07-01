@@ -128,9 +128,10 @@ const HomePage = () => {
             aria-hidden="true"
             className="w-full h-full object-cover"
           />
-          {/* Cinematic dark layer + brand-tinted gradient */}
-          <div className="absolute inset-0 bg-background/40" />
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-background/60 mix-blend-multiply" />
+          {/* Cinematic dark layer + brand-tinted gradient for stronger text readability */}
+          <div className="absolute inset-0 bg-background/55" />
+          <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-transparent to-background/85" />
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/15 via-transparent to-background/40 mix-blend-multiply" />
           <div className="absolute inset-0 cinematic-overlay" />
         </motion.div>
 
