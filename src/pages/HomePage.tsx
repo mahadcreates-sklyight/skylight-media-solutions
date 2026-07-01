@@ -59,14 +59,17 @@ const HomePage = () => {
   const [heroMuted, setHeroMuted] = useState(true);
   const heroVideoRef = useRef<HTMLVideoElement | null>(null);
 
-  // Attempt to play with sound on mount; browsers usually block this and we
-  // fall back to muted autoplay (the toggle button lets the user enable sound).
+  // Restore user's saved sound preference (falls back to muted if browser blocks).
   useEffect(() => {
     const v = heroVideoRef.current;
     if (!v) return;
-    v.muted = false;
+    let preferOn = false;
+    try {
+      preferOn = localStorage.getItem(SOUND_PREF_KEY) === 'on';
+    } catch { /* ignore */ }
+    v.muted = !preferOn;
     v.play()
-      .then(() => setHeroMuted(false))
+      .then(() => setHeroMuted(!preferOn ? true : false))
       .catch(() => {
         v.muted = true;
         setHeroMuted(true);
@@ -77,12 +80,13 @@ const HomePage = () => {
   const toggleHeroSound = () => {
     const v = heroVideoRef.current;
     if (!v) return;
-    const next = !heroMuted;
-    v.muted = next;
-    if (!next) {
-      v.play().catch(() => {});
-    }
-    setHeroMuted(next);
+    const nextMuted = !heroMuted;
+    v.muted = nextMuted;
+    if (!nextMuted) v.play().catch(() => {});
+    setHeroMuted(nextMuted);
+    try {
+      localStorage.setItem(SOUND_PREF_KEY, nextMuted ? 'off' : 'on');
+    } catch { /* ignore */ }
   };
 
   const services = [
