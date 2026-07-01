@@ -302,23 +302,27 @@ const HomePage = () => {
       <section className="section-padding bg-surface">
         <div className="container-custom">
           <SectionHeader title={t('testimonials.title')} subtitle={t('testimonials.subtitle')} />
-          <div className="max-w-3xl mx-auto">
-            <motion.div
-              key={currentTestimonial}
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="glass-card p-10 text-center"
-            >
-              <Quote className="w-10 h-10 text-primary/30 mx-auto mb-6" />
-              <p className="text-foreground text-lg md:text-xl leading-relaxed italic mb-8">
-                "{testimonials[currentTestimonial].quote}"
-              </p>
-              <div className="flex items-center justify-center gap-1 mb-4">
-                {Array.from({ length: testimonials[currentTestimonial].rating }).map((_, i) => (
-                  <Star key={i} className="w-4 h-4 text-primary fill-primary" />
-                ))}
-              </div>
-              <p className="text-foreground font-semibold">{testimonials[currentTestimonial].name}</p>
+          <div className="max-w-3xl mx-auto relative min-h-[320px]">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentTestimonial}
+                initial={{ opacity: 0, y: 20, scale: 0.98 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -20, scale: 0.98 }}
+                transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+                className="glass-card p-10 md:p-12 text-center relative overflow-hidden"
+              >
+                <Quote className="absolute top-6 left-6 w-24 h-24 text-primary/5 -z-0" />
+                <Quote className="w-10 h-10 text-primary/40 mx-auto mb-6 relative z-10" />
+                <p className="text-foreground text-lg md:text-xl leading-relaxed italic mb-8 relative z-10">
+                  &ldquo;{testimonials[currentTestimonial].quote}&rdquo;
+                </p>
+                <div className="flex items-center justify-center gap-1 mb-4">
+                  {Array.from({ length: testimonials[currentTestimonial].rating }).map((_, i) => (
+                    <Star key={i} className="w-4 h-4 text-primary fill-primary" />
+                  ))}
+                </div>
+                <p className="text-foreground font-semibold">{testimonials[currentTestimonial].name}</p>
               <p className="text-muted-foreground text-sm">{testimonials[currentTestimonial].company}</p>
             </motion.div>
             <div className="flex justify-center gap-2 mt-6">
