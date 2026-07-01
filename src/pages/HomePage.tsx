@@ -323,8 +323,9 @@ const HomePage = () => {
                   ))}
                 </div>
                 <p className="text-foreground font-semibold">{testimonials[currentTestimonial].name}</p>
-              <p className="text-muted-foreground text-sm">{testimonials[currentTestimonial].company}</p>
-            </motion.div>
+                <p className="text-muted-foreground text-sm">{testimonials[currentTestimonial].company}</p>
+              </motion.div>
+            </AnimatePresence>
             <div className="flex justify-center gap-2 mt-6">
               {testimonials.map((_, i) => (
                 <button
