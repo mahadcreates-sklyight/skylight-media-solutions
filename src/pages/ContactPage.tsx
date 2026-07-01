@@ -101,102 +101,136 @@ const ContactPage = () => {
               animate={{ opacity: 1, x: 0 }}
               className="lg:col-span-3"
             >
-              <form onSubmit={handleSubmit} className="glass-card p-8 md:p-10 space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="text-foreground text-sm font-medium mb-2 block">{t('contact.name')}</label>
-                    <input
-                      type="text"
-                      name="name"
-                      required
-                      value={formData.name}
-                      onChange={handleChange}
-                      className="w-full bg-secondary border border-border rounded-sm px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
-                    />
-                  </div>
-                  <div>
-                    <label className="text-foreground text-sm font-medium mb-2 block">{t('contact.email')}</label>
-                    <input
-                      type="email"
-                      name="email"
-                      required
-                      value={formData.email}
-                      onChange={handleChange}
-                      className="w-full bg-secondary border border-border rounded-sm px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
-                    />
-                  </div>
-                  <div>
-                    <label className="text-foreground text-sm font-medium mb-2 block">Phone</label>
-                    <input
-                      type="tel"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleChange}
-                      className="w-full bg-secondary border border-border rounded-sm px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
-                    />
-                  </div>
-                  <div>
-                    <label className="text-foreground text-sm font-medium mb-2 block">Company</label>
-                    <input
-                      type="text"
-                      name="company"
-                      value={formData.company}
-                      onChange={handleChange}
-                      className="w-full bg-secondary border border-border rounded-sm px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
-                    />
-                  </div>
-                  <div>
-                    <label className="text-foreground text-sm font-medium mb-2 block">Service</label>
-                    <input
-                      type="text"
-                      name="service"
-                      value={formData.service}
-                      onChange={handleChange}
-                      placeholder="e.g. Web Design, Branding"
-                      className="w-full bg-secondary border border-border rounded-sm px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
-                    />
-                  </div>
-                  <div>
-                    <label className="text-foreground text-sm font-medium mb-2 block">Subject</label>
-                    <input
-                      type="text"
-                      name="subject"
-                      value={formData.subject}
-                      onChange={handleChange}
-                      className="w-full bg-secondary border border-border rounded-sm px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
-                    />
-                  </div>
-                </div>
-                <div>
-                  <label className="text-foreground text-sm font-medium mb-2 block">{t('contact.message')}</label>
-                  <textarea
-                    name="message"
-                    required
-                    rows={6}
-                    value={formData.message}
-                    onChange={handleChange}
-                    className="w-full bg-secondary border border-border rounded-sm px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors resize-none"
-                  />
-                </div>
-                <button
-                  type="submit"
-                  disabled={submitting}
-                  className="btn-primary inline-flex items-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
-                >
-                  {submitting ? (
-                    <>
-                      <Loader2 className="w-4 h-4 animate-spin" /> Sending...
-                    </>
-                  ) : (
-                    'Send Message'
+              <div className="relative">
+                <AnimatePresence>
+                  {sent && (
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.96 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.96 }}
+                      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                      className="glass-card p-10 md:p-14 text-center flex flex-col items-center gap-5"
+                    >
+                      <motion.div
+                        initial={{ scale: 0, rotate: -30 }}
+                        animate={{ scale: 1, rotate: 0 }}
+                        transition={{ type: 'spring', stiffness: 220, damping: 14, delay: 0.15 }}
+                        className="relative"
+                      >
+                        <span className="absolute inset-0 rounded-full bg-primary/25 blur-2xl" />
+                        <CheckCircle2 className="w-20 h-20 text-primary relative drop-shadow-[0_0_20px_hsl(var(--primary)/0.6)]" strokeWidth={1.5} />
+                      </motion.div>
+                      <h3 className="text-foreground font-display text-2xl md:text-3xl font-semibold">
+                        Message Sent
+                      </h3>
+                      <p className="text-muted-foreground max-w-sm">
+                        Thank you for reaching out. Our team will get back to you within one business day.
+                      </p>
+                      <button
+                        type="button"
+                        onClick={() => setSent(false)}
+                        className="btn-outline mt-2"
+                      >
+                        Send Another Message
+                      </button>
+                    </motion.div>
                   )}
-                </button>
-                {sent && !submitting && (
-                  <p className="text-sm text-primary">
-                    Thanks! Your message has been sent. We'll reply soon.
-                  </p>
+                </AnimatePresence>
+
+                {!sent && (
+                  <form onSubmit={handleSubmit} className="glass-card p-8 md:p-10 space-y-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div>
+                        <label className="text-foreground text-sm font-medium mb-2 block">{t('contact.name')}</label>
+                        <input
+                          type="text"
+                          name="name"
+                          required
+                          value={formData.name}
+                          onChange={handleChange}
+                          className="w-full bg-secondary/60 border border-border rounded-md px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:shadow-[0_0_0_3px_hsl(var(--primary)/0.18)] transition-all"
+                        />
+                      </div>
+                      <div>
+                        <label className="text-foreground text-sm font-medium mb-2 block">{t('contact.email')}</label>
+                        <input
+                          type="email"
+                          name="email"
+                          required
+                          value={formData.email}
+                          onChange={handleChange}
+                          className="w-full bg-secondary/60 border border-border rounded-md px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:shadow-[0_0_0_3px_hsl(var(--primary)/0.18)] transition-all"
+                        />
+                      </div>
+                      <div>
+                        <label className="text-foreground text-sm font-medium mb-2 block">Phone</label>
+                        <input
+                          type="tel"
+                          name="phone"
+                          value={formData.phone}
+                          onChange={handleChange}
+                          className="w-full bg-secondary/60 border border-border rounded-md px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:shadow-[0_0_0_3px_hsl(var(--primary)/0.18)] transition-all"
+                        />
+                      </div>
+                      <div>
+                        <label className="text-foreground text-sm font-medium mb-2 block">Company</label>
+                        <input
+                          type="text"
+                          name="company"
+                          value={formData.company}
+                          onChange={handleChange}
+                          className="w-full bg-secondary/60 border border-border rounded-md px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:shadow-[0_0_0_3px_hsl(var(--primary)/0.18)] transition-all"
+                        />
+                      </div>
+                      <div>
+                        <label className="text-foreground text-sm font-medium mb-2 block">Service</label>
+                        <input
+                          type="text"
+                          name="service"
+                          value={formData.service}
+                          onChange={handleChange}
+                          placeholder="e.g. Web Design, Branding"
+                          className="w-full bg-secondary/60 border border-border rounded-md px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:shadow-[0_0_0_3px_hsl(var(--primary)/0.18)] transition-all"
+                        />
+                      </div>
+                      <div>
+                        <label className="text-foreground text-sm font-medium mb-2 block">Subject</label>
+                        <input
+                          type="text"
+                          name="subject"
+                          value={formData.subject}
+                          onChange={handleChange}
+                          className="w-full bg-secondary/60 border border-border rounded-md px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:shadow-[0_0_0_3px_hsl(var(--primary)/0.18)] transition-all"
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <label className="text-foreground text-sm font-medium mb-2 block">{t('contact.message')}</label>
+                      <textarea
+                        name="message"
+                        required
+                        rows={6}
+                        value={formData.message}
+                        onChange={handleChange}
+                        className="w-full bg-secondary/60 border border-border rounded-md px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:shadow-[0_0_0_3px_hsl(var(--primary)/0.18)] transition-all resize-none"
+                      />
+                    </div>
+                    <button
+                      type="submit"
+                      disabled={submitting}
+                      className="btn-primary inline-flex items-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
+                    >
+                      {submitting ? (
+                        <>
+                          <Loader2 className="w-4 h-4 animate-spin" /> Sending...
+                        </>
+                      ) : (
+                        'Send Message'
+                      )}
+                    </button>
+                  </form>
                 )}
-              </form>
+              </div>
             </motion.div>
 
             {/* Contact Info */}
